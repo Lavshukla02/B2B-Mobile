@@ -2171,8 +2171,8 @@
       "name" : "MonitorActivity",
       "penaltyDuration" : "30 sec",
       "position" : {
-        "x" : -1088.0,
-        "y" : -600.0
+        "x" : -1408.0,
+        "y" : -768.0
       },
       "properties" : {
         "Continually Send Messages" : "false",
@@ -2180,7 +2180,7 @@
         "Activity Restored Message" : "Activity restored at time: ${now():format('yyyy/MM/dd HH:mm:ss')} after being inactive for ${inactivityDurationMillis:toNumber():divide(60000)} minutes",
         "Copy Attributes" : "false",
         "Monitoring Scope" : "node",
-        "Threshold Duration" : "10 min",
+        "Threshold Duration" : "11 min",
         "Wait for Activity" : "false",
         "Reset State on Restart" : "true",
         "Reporting Node" : "all"
@@ -3584,8 +3584,8 @@
       "name" : "PutFile",
       "penaltyDuration" : "30 sec",
       "position" : {
-        "x" : -1392.0,
-        "y" : -792.0
+        "x" : -1496.0,
+        "y" : -1184.0
       },
       "properties" : {
         "Create Missing Directories" : "true",
@@ -3855,6 +3855,6 @@
   "snapshotMetadata" : {
     "author" : "b0134371-f506-4b06-addc-5225b6ca3196",
     "flowIdentifier" : "LocationAPINewToken",
-    "timestamp" : 1766164332711
+    "timestamp" : 1770795361362
   }
 }
