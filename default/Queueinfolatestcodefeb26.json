@@ -347,6 +347,66 @@
         "type" : "PROCESSOR"
       },
       "zIndex" : 20
+    }, {
+      "backPressureDataSizeThreshold" : "1 GB",
+      "backPressureObjectThreshold" : 10000,
+      "bends" : [ ],
+      "componentType" : "CONNECTION",
+      "destination" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "78ef1c1d-019a-1000-24d9-9005f8462a2c",
+        "name" : "UpdateAttribute",
+        "type" : "PROCESSOR"
+      },
+      "flowFileExpiration" : "0 sec",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "9f02e3a5-bd1a-3d5b-aa52-f540ba234051",
+      "labelIndex" : 0,
+      "loadBalanceCompression" : "DO_NOT_COMPRESS",
+      "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
+      "name" : "",
+      "partitioningAttribute" : "",
+      "prioritizers" : [ ],
+      "selectedRelationships" : [ "matched" ],
+      "source" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "948e64b5-019c-1000-b1a7-6106e9e03f1f",
+        "name" : "ExtractText",
+        "type" : "PROCESSOR"
+      },
+      "zIndex" : 24
+    }, {
+      "backPressureDataSizeThreshold" : "1 GB",
+      "backPressureObjectThreshold" : 10000,
+      "bends" : [ ],
+      "componentType" : "CONNECTION",
+      "destination" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "948e64b5-019c-1000-b1a7-6106e9e03f1f",
+        "name" : "ExtractText",
+        "type" : "PROCESSOR"
+      },
+      "flowFileExpiration" : "0 sec",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "ddf93b14-9343-3334-ac56-b51fae9b3657",
+      "labelIndex" : 0,
+      "loadBalanceCompression" : "DO_NOT_COMPRESS",
+      "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
+      "name" : "",
+      "partitioningAttribute" : "",
+      "prioritizers" : [ ],
+      "selectedRelationships" : [ "success" ],
+      "source" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "948d2d4a-019c-1000-1a0c-8ef5e5c89c87",
+        "name" : "AWS token get",
+        "type" : "PROCESSOR"
+      },
+      "zIndex" : 23
     } ],
     "controllerServices" : [ {
       "bulletinLevel" : "WARN",
@@ -1454,8 +1514,8 @@
       "name" : "ExtractText",
       "penaltyDuration" : "30 sec",
       "position" : {
-        "x" : -216.0,
-        "y" : -472.0
+        "x" : -384.0,
+        "y" : -528.0
       },
       "properties" : {
         "Enable Unicode Predefined Character Classes" : "false",
@@ -1625,7 +1685,8 @@
         "Store State" : "Do not store state",
         "canonical-value-lookup-cache-size" : "100",
         "api_url" : "https://ghial-prd.ghialapoc.in/advanced/api/v1/queue/get",
-        "locationId" : "${location.id}"
+        "locationId" : "658aa294c79ac16d63ea05d4,6634bedfb8c0fd124518b246,658aa2f8c79ac16d63ea05dd,6634bea2b8c0fd124518b227,65d34c817c95fd0bd3c85ad3,658aa270c79ac16d63ea05d1,658aa311c79ac16d63ea05e0,65d34be47c95fd0bd3c85970,658aa2d4c79ac16d63ea05da,658aa2b4c79ac16d63ea05d7",
+        "bearer.token" : "${bearer.token:trim()}"
       },
       "propertyDescriptors" : {
         "Authorization" : {
@@ -1668,6 +1729,13 @@
           "dynamic" : true,
           "identifiesControllerService" : false,
           "name" : "locationId",
+          "sensitive" : false
+        },
+        "bearer.token" : {
+          "displayName" : "bearer.token",
+          "dynamic" : true,
+          "identifiesControllerService" : false,
+          "name" : "bearer.token",
           "sensitive" : false
         },
         "Stateful Variables Initial Value" : {
@@ -2430,7 +2498,7 @@
       },
       "properties" : {
         "Regular Expression" : "(?s)(^.*$)",
-        "Replacement Value" : "[ \"${locationId}\" ]",
+        "Replacement Value" : "[${locationId:replaceAll(',', '\",\"'):prepend('\"'):append('\"')}]",
         "Evaluation Mode" : "Entire text",
         "Line-by-Line Evaluation Mode" : "All",
         "Character Set" : "UTF-8",
@@ -2530,8 +2598,8 @@
       "name" : "GetFile",
       "penaltyDuration" : "30 sec",
       "position" : {
-        "x" : -200.0,
-        "y" : -648.0
+        "x" : -880.0,
+        "y" : -728.0
       },
       "properties" : {
         "Keep Source File" : "true",
@@ -2746,6 +2814,339 @@
       "style" : { },
       "type" : "org.apache.nifi.processors.standard.MonitorActivity",
       "yieldDuration" : "1 sec"
+    }, {
+      "autoTerminatedRelationships" : [ ],
+      "backoffMechanism" : "PENALIZE_FLOWFILE",
+      "bulletinLevel" : "WARN",
+      "bundle" : {
+        "artifact" : "nifi-standard-nar",
+        "group" : "org.apache.nifi",
+        "version" : "2.6.0"
+      },
+      "comments" : "",
+      "componentType" : "PROCESSOR",
+      "concurrentlySchedulableTaskCount" : 1,
+      "executionNode" : "ALL",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "948d2d4a-019c-1000-1a0c-8ef5e5c89c87",
+      "maxBackoffPeriod" : "10 mins",
+      "name" : "AWS token get",
+      "penaltyDuration" : "30 sec",
+      "position" : {
+        "x" : 672.0,
+        "y" : -720.0
+      },
+      "properties" : {
+        "Command" : "/bin/bash",
+        "Redirect Error Stream" : "true",
+        "Working Directory" : "/home/ubuntu",
+        "Argument Delimiter" : " ",
+        "Command Arguments" : "/home/ubuntu/gettoken.sh"
+      },
+      "propertyDescriptors" : {
+        "Command" : {
+          "displayName" : "Command",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Command",
+          "sensitive" : false
+        },
+        "Redirect Error Stream" : {
+          "displayName" : "Redirect Error Stream",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Redirect Error Stream",
+          "sensitive" : false
+        },
+        "Working Directory" : {
+          "displayName" : "Working Directory",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Working Directory",
+          "sensitive" : false
+        },
+        "Output MIME type" : {
+          "displayName" : "Output MIME type",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Output MIME type",
+          "sensitive" : false
+        },
+        "Argument Delimiter" : {
+          "displayName" : "Argument Delimiter",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Argument Delimiter",
+          "sensitive" : false
+        },
+        "Batch Duration" : {
+          "displayName" : "Batch Duration",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Batch Duration",
+          "sensitive" : false
+        },
+        "Command Arguments" : {
+          "displayName" : "Command Arguments",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Command Arguments",
+          "sensitive" : false
+        }
+      },
+      "retriedRelationships" : [ ],
+      "retryCount" : 10,
+      "runDurationMillis" : 0,
+      "scheduledState" : "ENABLED",
+      "schedulingPeriod" : "300 sec",
+      "schedulingStrategy" : "TIMER_DRIVEN",
+      "style" : { },
+      "type" : "org.apache.nifi.processors.standard.ExecuteProcess",
+      "yieldDuration" : "1 sec"
+    }, {
+      "autoTerminatedRelationships" : [ "unmatched" ],
+      "backoffMechanism" : "PENALIZE_FLOWFILE",
+      "bulletinLevel" : "WARN",
+      "bundle" : {
+        "artifact" : "nifi-standard-nar",
+        "group" : "org.apache.nifi",
+        "version" : "2.6.0"
+      },
+      "comments" : "",
+      "componentType" : "PROCESSOR",
+      "concurrentlySchedulableTaskCount" : 1,
+      "executionNode" : "ALL",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "948e64b5-019c-1000-b1a7-6106e9e03f1f",
+      "maxBackoffPeriod" : "10 mins",
+      "name" : "ExtractText",
+      "penaltyDuration" : "30 sec",
+      "position" : {
+        "x" : 272.0,
+        "y" : -488.0
+      },
+      "properties" : {
+        "Enable Unicode Predefined Character Classes" : "false",
+        "Permit Whitespace and Comments in Pattern" : "false",
+        "Enable Unicode-aware Case Folding" : "false",
+        "Enable named group support" : "false",
+        "Enable DOTALL Mode" : "false",
+        "Enable Unix Lines Mode" : "false",
+        "Maximum Buffer Size" : "1 MB",
+        "Enable Canonical Equivalence" : "false",
+        "Enable Case-insensitive Matching" : "false",
+        "Enable Multiline Mode" : "false",
+        "Enable repeating capture group" : "false",
+        "bearer.token" : "(?s)(.*)",
+        "Maximum Capture Group Length" : "1024",
+        "Enable Literal Parsing of the Pattern" : "false",
+        "Character Set" : "UTF-8",
+        "Include Capture Group 0" : "false"
+      },
+      "propertyDescriptors" : {
+        "Enable Unicode Predefined Character Classes" : {
+          "displayName" : "Enable Unicode Predefined Character Classes",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Enable Unicode Predefined Character Classes",
+          "sensitive" : false
+        },
+        "Permit Whitespace and Comments in Pattern" : {
+          "displayName" : "Permit Whitespace and Comments in Pattern",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Permit Whitespace and Comments in Pattern",
+          "sensitive" : false
+        },
+        "Enable Unicode-aware Case Folding" : {
+          "displayName" : "Enable Unicode-aware Case Folding",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Enable Unicode-aware Case Folding",
+          "sensitive" : false
+        },
+        "Enable named group support" : {
+          "displayName" : "Enable named group support",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Enable named group support",
+          "sensitive" : false
+        },
+        "Enable DOTALL Mode" : {
+          "displayName" : "Enable DOTALL Mode",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Enable DOTALL Mode",
+          "sensitive" : false
+        },
+        "Enable Unix Lines Mode" : {
+          "displayName" : "Enable Unix Lines Mode",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Enable Unix Lines Mode",
+          "sensitive" : false
+        },
+        "Maximum Buffer Size" : {
+          "displayName" : "Maximum Buffer Size",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Maximum Buffer Size",
+          "sensitive" : false
+        },
+        "Enable Canonical Equivalence" : {
+          "displayName" : "Enable Canonical Equivalence",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Enable Canonical Equivalence",
+          "sensitive" : false
+        },
+        "Enable Case-insensitive Matching" : {
+          "displayName" : "Enable Case-insensitive Matching",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Enable Case-insensitive Matching",
+          "sensitive" : false
+        },
+        "Enable Multiline Mode" : {
+          "displayName" : "Enable Multiline Mode",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Enable Multiline Mode",
+          "sensitive" : false
+        },
+        "Enable repeating capture group" : {
+          "displayName" : "Enable repeating capture group",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Enable repeating capture group",
+          "sensitive" : false
+        },
+        "bearer.token" : {
+          "displayName" : "bearer.token",
+          "dynamic" : true,
+          "identifiesControllerService" : false,
+          "name" : "bearer.token",
+          "sensitive" : false
+        },
+        "Maximum Capture Group Length" : {
+          "displayName" : "Maximum Capture Group Length",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Maximum Capture Group Length",
+          "sensitive" : false
+        },
+        "Enable Literal Parsing of the Pattern" : {
+          "displayName" : "Enable Literal Parsing of the Pattern",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Enable Literal Parsing of the Pattern",
+          "sensitive" : false
+        },
+        "Character Set" : {
+          "displayName" : "Character Set",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Character Set",
+          "sensitive" : false
+        },
+        "Include Capture Group 0" : {
+          "displayName" : "Include Capture Group 0",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Include Capture Group 0",
+          "sensitive" : false
+        }
+      },
+      "retriedRelationships" : [ ],
+      "retryCount" : 10,
+      "runDurationMillis" : 0,
+      "scheduledState" : "ENABLED",
+      "schedulingPeriod" : "30 sec",
+      "schedulingStrategy" : "TIMER_DRIVEN",
+      "style" : { },
+      "type" : "org.apache.nifi.processors.standard.ExtractText",
+      "yieldDuration" : "1 sec"
+    }, {
+      "autoTerminatedRelationships" : [ ],
+      "backoffMechanism" : "PENALIZE_FLOWFILE",
+      "bulletinLevel" : "WARN",
+      "bundle" : {
+        "artifact" : "nifi-update-attribute-nar",
+        "group" : "org.apache.nifi",
+        "version" : "2.6.0"
+      },
+      "comments" : "",
+      "componentType" : "PROCESSOR",
+      "concurrentlySchedulableTaskCount" : 1,
+      "executionNode" : "ALL",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "948efa3d-019c-1000-5354-36707216d837",
+      "maxBackoffPeriod" : "10 mins",
+      "name" : "UpdateAttribute",
+      "penaltyDuration" : "30 sec",
+      "position" : {
+        "x" : 592.0,
+        "y" : -272.0
+      },
+      "properties" : {
+        "Authorization" : "Bearer ${bearer.token}",
+        "Store State" : "Do not store state",
+        "canonical-value-lookup-cache-size" : "100",
+        "bearer.token" : "${bearer.token:trim()}"
+      },
+      "propertyDescriptors" : {
+        "Authorization" : {
+          "displayName" : "Authorization",
+          "dynamic" : true,
+          "identifiesControllerService" : false,
+          "name" : "Authorization",
+          "sensitive" : false
+        },
+        "Delete Attributes Expression" : {
+          "displayName" : "Delete Attributes Expression",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Delete Attributes Expression",
+          "sensitive" : false
+        },
+        "Store State" : {
+          "displayName" : "Store State",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Store State",
+          "sensitive" : false
+        },
+        "canonical-value-lookup-cache-size" : {
+          "displayName" : "Cache Value Lookup Cache Size",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "canonical-value-lookup-cache-size",
+          "sensitive" : false
+        },
+        "bearer.token" : {
+          "displayName" : "bearer.token",
+          "dynamic" : true,
+          "identifiesControllerService" : false,
+          "name" : "bearer.token",
+          "sensitive" : false
+        },
+        "Stateful Variables Initial Value" : {
+          "displayName" : "Stateful Variables Initial Value",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Stateful Variables Initial Value",
+          "sensitive" : false
+        }
+      },
+      "retriedRelationships" : [ ],
+      "retryCount" : 10,
+      "runDurationMillis" : 25,
+      "scheduledState" : "ENABLED",
+      "schedulingPeriod" : "0 sec",
+      "schedulingStrategy" : "TIMER_DRIVEN",
+      "style" : { },
+      "type" : "org.apache.nifi.processors.attributes.UpdateAttribute",
+      "yieldDuration" : "1 sec"
     } ],
     "remoteProcessGroups" : [ ],
     "scheduledState" : "ENABLED",
@@ -2758,6 +3159,6 @@
   "snapshotMetadata" : {
     "author" : "b0134371-f506-4b06-addc-5225b6ca3196",
     "flowIdentifier" : "Queueinfolatestcodefeb26",
-    "timestamp" : 1770807341928
+    "timestamp" : 1772019649655
   }
 }
