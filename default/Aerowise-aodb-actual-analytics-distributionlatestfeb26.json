@@ -382,36 +382,6 @@
       "destination" : {
         "comments" : "",
         "groupId" : "flow-contents-group",
-        "id" : "8b248777-019a-1000-a34b-bdfe46aeacd6",
-        "name" : "InvokeHTTP",
-        "type" : "PROCESSOR"
-      },
-      "flowFileExpiration" : "0 sec",
-      "groupIdentifier" : "flow-contents-group",
-      "identifier" : "61cc5d58-8386-3495-88fa-94ee879aa11e",
-      "labelIndex" : 0,
-      "loadBalanceCompression" : "DO_NOT_COMPRESS",
-      "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
-      "name" : "",
-      "partitioningAttribute" : "",
-      "prioritizers" : [ ],
-      "selectedRelationships" : [ "success" ],
-      "source" : {
-        "comments" : "",
-        "groupId" : "flow-contents-group",
-        "id" : "8b044c02-092b-39bd-b425-9e5088218ab2",
-        "name" : "ControlRate",
-        "type" : "PROCESSOR"
-      },
-      "zIndex" : 54
-    }, {
-      "backPressureDataSizeThreshold" : "1 GB",
-      "backPressureObjectThreshold" : 10000,
-      "bends" : [ ],
-      "componentType" : "CONNECTION",
-      "destination" : {
-        "comments" : "",
-        "groupId" : "flow-contents-group",
         "id" : "8c4e961a-019a-1000-0523-4cfe9951c4c8",
         "name" : "PutDatabaseRecord",
         "type" : "PROCESSOR"
@@ -1058,6 +1028,36 @@
         "type" : "PROCESSOR"
       },
       "zIndex" : 31
+    }, {
+      "backPressureDataSizeThreshold" : "1 GB",
+      "backPressureObjectThreshold" : 10000,
+      "bends" : [ ],
+      "componentType" : "CONNECTION",
+      "destination" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "8b248777-019a-1000-a34b-bdfe46aeacd6",
+        "name" : "InvokeHTTP",
+        "type" : "PROCESSOR"
+      },
+      "flowFileExpiration" : "0 sec",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "bcf69704-5a78-3310-ab82-a42f0f6bac2c",
+      "labelIndex" : 0,
+      "loadBalanceCompression" : "DO_NOT_COMPRESS",
+      "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
+      "name" : "",
+      "partitioningAttribute" : "",
+      "prioritizers" : [ ],
+      "selectedRelationships" : [ "success" ],
+      "source" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "8b044c02-092b-39bd-b425-9e5088218ab2",
+        "name" : "ControlRate",
+        "type" : "PROCESSOR"
+      },
+      "zIndex" : 143
     }, {
       "backPressureDataSizeThreshold" : "1 GB",
       "backPressureObjectThreshold" : 10000,
@@ -3412,7 +3412,7 @@
       },
       "properties" : {
         "Script Engine" : "Groovy",
-        "Script Body" : "import org.apache.nifi.processor.io.StreamCallback\nimport groovy.json.JsonSlurper\nimport groovy.json.JsonOutput\nimport java.nio.charset.StandardCharsets\nimport java.time.*\nimport java.time.format.DateTimeFormatter\n\ndef flowFile = session.get()\nif (!flowFile) return\n\nflowFile = session.write(flowFile, { inputStream, outputStream ->\n\n    def json = new JsonSlurper().parseText(inputStream.getText('UTF-8'))\n    def result = []\n\n    def zone = ZoneId.of(\"Asia/Kolkata\")\n    def fmt = DateTimeFormatter.ofPattern(\"yyyy-MM-dd HH:mm:ss\").withZone(zone)\n    def now = Instant.now()\n\n    // ✅ FULL DAY WINDOW (IST)\n    def todayDate = ZonedDateTime.now(zone).toLocalDate()\n    def fixedStart = todayDate.atStartOfDay(zone)                    // 00:00:00\n    def fixedEnd   = todayDate.atTime(23,59,59).atZone(zone)         // 23:59:59\n\n    json.each { record ->\n\n        record.stats?.each { stat ->\n\n            def ts = (stat.startTime ?: record.startTime) as Long\n            def hourTime = Instant.ofEpochMilli(ts).atZone(zone)\n            def hourStr = fmt.format(hourTime.withMinute(0).withSecond(0).withNano(0))\n\n            def entrySum = stat.entryStats?.sum ?: 0\n\n            result << [\n                hour        : hourStr,\n                entry_sum   : entrySum,\n                location_id : stat.locationid,\n                start_time  : fmt.format(fixedStart),   // ✅ 00:00:00\n                end_time    : fmt.format(fixedEnd),     // ✅ 23:59:59\n                created_at  : fmt.format(now),\n                updated_at  : fmt.format(now)\n            ]\n        }\n    }\n\n    outputStream.write(\n        JsonOutput.prettyPrint(JsonOutput.toJson(result))\n            .getBytes(StandardCharsets.UTF_8)\n    )\n\n} as StreamCallback)\n\nsession.transfer(flowFile, REL_SUCCESS)"
+        "Script Body" : "import org.apache.nifi.processor.io.StreamCallback\nimport groovy.json.JsonSlurper\nimport groovy.json.JsonOutput\nimport java.nio.charset.StandardCharsets\nimport java.time.*\nimport java.time.format.DateTimeFormatter\n\ndef flowFile = session.get()\nif (!flowFile) return\n\nflowFile = session.write(flowFile, { inputStream, outputStream ->\n\n    def json = new JsonSlurper().parseText(inputStream.getText('UTF-8'))\n    def result = []\n\n    def zone = ZoneId.of(\"Asia/Kolkata\")\n    def fmt = DateTimeFormatter.ofPattern(\"yyyy-MM-dd HH:mm:ss\").withZone(zone)\n    def now = Instant.now()\n\n    // FULL DAY WINDOW (IST)\n    def todayDate = ZonedDateTime.now(zone).toLocalDate()\n    def fixedStart = todayDate.atStartOfDay(zone)\n    def fixedEnd   = todayDate.atTime(23,59,59).atZone(zone)\n\n    json.each { record ->\n\n        record.stats?.each { stat ->\n\n            def ts = (stat.startTime ?: record.startTime) as Long\n            def hourTime = Instant.ofEpochMilli(ts).atZone(zone)\n\n            // keep hour, force today's IST date\n            def correctedHour = ZonedDateTime.of(\n                    todayDate,\n                    hourTime.toLocalTime().withMinute(0).withSecond(0).withNano(0),\n                    zone\n            )\n\n            // ✅ entry - exit calculation\n            def entry = stat.entryStats?.sum ?: 0\n            def exit  = stat.exitStats?.sum ?: 0\n            def entrySum = Math.max(0, entry - exit)\n\n            result << [\n                hour        : fmt.format(correctedHour),\n                entry_sum   : entrySum,\n                location_id : stat.locationid,\n                start_time  : fmt.format(fixedStart),\n                end_time    : fmt.format(fixedEnd),\n                created_at  : fmt.format(now),\n                updated_at  : fmt.format(now)\n            ]\n        }\n    }\n\n    outputStream.write(\n        JsonOutput.prettyPrint(JsonOutput.toJson(result))\n            .getBytes(StandardCharsets.UTF_8)\n    )\n\n} as StreamCallback)\n\nsession.transfer(flowFile, REL_SUCCESS)"
       },
       "propertyDescriptors" : {
         "Script File" : {
@@ -6511,7 +6511,7 @@
       },
       "properties" : {
         "Script Engine" : "Groovy",
-        "Script Body" : "import org.apache.nifi.processor.io.StreamCallback\nimport groovy.json.JsonSlurper\nimport groovy.json.JsonOutput\nimport java.nio.charset.StandardCharsets\nimport java.time.*\nimport java.time.format.DateTimeFormatter\n\ndef flowFile = session.get()\nif (!flowFile) return\n\nflowFile = session.write(flowFile, { inputStream, outputStream ->\n\n    def json = new JsonSlurper().parseText(inputStream.getText('UTF-8'))\n    def result = []\n\n    def zone = ZoneId.of(\"Asia/Kolkata\")\n    def fmt = DateTimeFormatter.ofPattern(\"yyyy-MM-dd HH:mm:ss\").withZone(zone)\n    def now = Instant.now()\n\n    // ✅ FULL DAY WINDOW (00:00:00 → 23:59:59 IST)\n    def todayDate = ZonedDateTime.now(zone).toLocalDate()\n    def fixedStart = todayDate.atStartOfDay(zone)            // 00:00:00\n    def fixedEnd   = todayDate.atTime(23,59,59).atZone(zone) // 23:59:59\n\n    json.each { record ->\n\n        record.stats?.each { stat ->\n\n            def ts = (stat.startTime ?: record.startTime) as Long\n            def hourTime = Instant.ofEpochMilli(ts).atZone(zone)\n            def hourStr = fmt.format(hourTime.withMinute(0).withSecond(0).withNano(0))\n\n            def entrySum = stat.entryStats?.sum ?: 0\n\n            result << [\n                hour        : hourStr,\n                entry_sum   : entrySum,\n                location_id : stat.locationid,\n                start_time  : fmt.format(fixedStart),   // ✅ 00:00:00\n                end_time    : fmt.format(fixedEnd),     // ✅ 23:59:59\n                created_at  : fmt.format(now),\n                updated_at  : fmt.format(now)\n            ]\n        }\n    }\n\n    outputStream.write(\n        JsonOutput.prettyPrint(JsonOutput.toJson(result))\n            .getBytes(StandardCharsets.UTF_8)\n    )\n\n} as StreamCallback)\n\nsession.transfer(flowFile, REL_SUCCESS)"
+        "Script Body" : "import org.apache.nifi.processor.io.StreamCallback\nimport groovy.json.JsonSlurper\nimport groovy.json.JsonOutput\nimport java.nio.charset.StandardCharsets\nimport java.time.*\nimport java.time.format.DateTimeFormatter\n\ndef flowFile = session.get()\nif (!flowFile) return\n\nflowFile = session.write(flowFile, { inputStream, outputStream ->\n\n    def json = new JsonSlurper().parseText(inputStream.getText('UTF-8'))\n    def result = []\n\n    def zone = ZoneId.of(\"Asia/Kolkata\")\n    def fmt = DateTimeFormatter.ofPattern(\"yyyy-MM-dd HH:mm:ss\").withZone(zone)\n    def now = Instant.now()\n\n    def todayDate = ZonedDateTime.now(zone).toLocalDate()\n    def fixedStart = todayDate.atStartOfDay(zone)\n    def fixedEnd   = todayDate.atTime(23,59,59).atZone(zone)\n\n    json.each { record ->\n\n        record.stats?.each { stat ->\n\n            def ts = (stat.startTime ?: record.startTime) as Long\n            def hourTime = Instant.ofEpochMilli(ts).atZone(zone)\n\n            // force today's date, keep hour\n            def correctedHour = ZonedDateTime.of(\n                    todayDate,\n                    hourTime.toLocalTime().withMinute(0).withSecond(0).withNano(0),\n                    zone\n            )\n\n            // ✅ entry - exit calculation\n            def entry = stat.entryStats?.sum ?: 0\n            def exit  = stat.exitStats?.sum ?: 0\n            def entrySum = Math.max(0, entry - exit)\n\n            result << [\n                hour        : fmt.format(correctedHour),\n                entry_sum   : entrySum,\n                location_id : stat.locationid,\n                start_time  : fmt.format(fixedStart),\n                end_time    : fmt.format(fixedEnd),\n                created_at  : fmt.format(now),\n                updated_at  : fmt.format(now)\n            ]\n        }\n    }\n\n    outputStream.write(\n        JsonOutput.prettyPrint(JsonOutput.toJson(result))\n            .getBytes(StandardCharsets.UTF_8)\n    )\n\n} as StreamCallback)\n\nsession.transfer(flowFile, REL_SUCCESS)"
       },
       "propertyDescriptors" : {
         "Script File" : {
@@ -6584,7 +6584,7 @@
       },
       "properties" : {
         "Script Engine" : "Groovy",
-        "Script Body" : "import org.apache.nifi.processor.io.StreamCallback\nimport groovy.json.JsonSlurper\nimport groovy.json.JsonOutput\nimport java.nio.charset.StandardCharsets\nimport java.time.*\nimport java.time.format.DateTimeFormatter\n\ndef flowFile = session.get()\nif (!flowFile) return\n\nflowFile = session.write(flowFile, { inputStream, outputStream ->\n\n    def json = new JsonSlurper().parseText(inputStream.getText('UTF-8'))\n    def result = []\n\n    def zone = ZoneId.of(\"Asia/Kolkata\")\n    def fmt = DateTimeFormatter.ofPattern(\"yyyy-MM-dd HH:mm:ss\").withZone(zone)\n    def now = Instant.now()\n\n    // ✅ FULL DAY WINDOW (00:00:00 → 23:59:59 IST)\n    def todayDate = ZonedDateTime.now(zone).toLocalDate()\n    def fixedStart = todayDate.atStartOfDay(zone)            // 00:00:00\n    def fixedEnd   = todayDate.atTime(23,59,59).atZone(zone) // 23:59:59\n\n    json.each { record ->\n\n        record.stats?.each { stat ->\n\n            def ts = (stat.startTime ?: record.startTime) as Long\n            def hourTime = Instant.ofEpochMilli(ts).atZone(zone)\n            def hourStr = fmt.format(hourTime.withMinute(0).withSecond(0).withNano(0))\n\n            def entrySum = stat.entryStats?.sum ?: 0\n\n            result << [\n                hour        : hourStr,\n                entry_sum   : entrySum,\n                location_id : stat.locationid,\n                start_time  : fmt.format(fixedStart),   // ✅ 00:00:00\n                end_time    : fmt.format(fixedEnd),     // ✅ 23:59:59\n                created_at  : fmt.format(now),\n                updated_at  : fmt.format(now)\n            ]\n        }\n    }\n\n    outputStream.write(\n        JsonOutput.prettyPrint(JsonOutput.toJson(result))\n            .getBytes(StandardCharsets.UTF_8)\n    )\n\n} as StreamCallback)\n\nsession.transfer(flowFile, REL_SUCCESS)"
+        "Script Body" : "import org.apache.nifi.processor.io.StreamCallback\nimport groovy.json.JsonSlurper\nimport groovy.json.JsonOutput\nimport java.nio.charset.StandardCharsets\nimport java.time.*\nimport java.time.format.DateTimeFormatter\n\ndef flowFile = session.get()\nif (!flowFile) return\n\nflowFile = session.write(flowFile, { inputStream, outputStream ->\n\n    def json = new JsonSlurper().parseText(inputStream.getText('UTF-8'))\n    def result = []\n\n    def zone = ZoneId.of(\"Asia/Kolkata\")\n    def fmt = DateTimeFormatter.ofPattern(\"yyyy-MM-dd HH:mm:ss\").withZone(zone)\n    def now = Instant.now()\n\n    def todayDate = ZonedDateTime.now(zone).toLocalDate()\n    def fixedStart = todayDate.atStartOfDay(zone)\n    def fixedEnd   = todayDate.atTime(23,59,59).atZone(zone)\n\n    json.each { record ->\n\n        record.stats?.each { stat ->\n\n            def ts = (stat.startTime ?: record.startTime) as long\n            def hourTime = Instant.ofEpochMilli(ts).atZone(zone)\n\n            // keep hour, force today's IST date\n            def correctedHour = ZonedDateTime.of(\n                    todayDate,\n                    hourTime.toLocalTime().withMinute(0).withSecond(0).withNano(0),\n                    zone\n            )\n\n            // ✅ entry - exit calculation\n            def entry = stat.entryStats?.sum ?: 0\n            def exit  = stat.exitStats?.sum ?: 0\n            def entrySum = Math.max(0, entry - exit)\n\n            result << [\n                hour        : fmt.format(correctedHour),\n                entry_sum   : entrySum,\n                location_id : stat.locationid,\n                start_time  : fmt.format(fixedStart),\n                end_time    : fmt.format(fixedEnd),\n                created_at  : fmt.format(now),\n                updated_at  : fmt.format(now)\n            ]\n        }\n    }\n\n    outputStream.write(\n        JsonOutput.prettyPrint(JsonOutput.toJson(result))\n            .getBytes(StandardCharsets.UTF_8)\n    )\n\n} as StreamCallback)\n\nsession.transfer(flowFile, REL_SUCCESS)"
       },
       "propertyDescriptors" : {
         "Script File" : {
@@ -6657,7 +6657,7 @@
       },
       "properties" : {
         "Script Engine" : "Groovy",
-        "Script Body" : "import org.apache.nifi.processor.io.StreamCallback\nimport groovy.json.JsonSlurper\nimport groovy.json.JsonOutput\nimport java.nio.charset.StandardCharsets\nimport java.time.*\nimport java.time.format.DateTimeFormatter\n\ndef flowFile = session.get()\nif (!flowFile) return\n\nflowFile = session.write(flowFile, { inputStream, outputStream ->\n\n    def json = new JsonSlurper().parseText(inputStream.getText('UTF-8'))\n    def result = []\n\n    def zone = ZoneId.of(\"Asia/Kolkata\")\n    def fmt = DateTimeFormatter.ofPattern(\"yyyy-MM-dd HH:mm:ss\").withZone(zone)\n    def now = Instant.now()\n\n    // ✅ FULL DAY WINDOW (00:00:00 → 23:59:59 IST)\n    def todayDate = ZonedDateTime.now(zone).toLocalDate()\n    def fixedStart = todayDate.atStartOfDay(zone)            // 00:00:00\n    def fixedEnd   = todayDate.atTime(23,59,59).atZone(zone) // 23:59:59\n\n    json.each { record ->\n\n        record.stats?.each { stat ->\n\n            def ts = (stat.startTime ?: record.startTime) as Long\n            def hourTime = Instant.ofEpochMilli(ts).atZone(zone)\n            def hourStr = fmt.format(hourTime.withMinute(0).withSecond(0).withNano(0))\n\n            def entrySum = stat.entryStats?.sum ?: 0\n\n            result << [\n                hour        : hourStr,\n                entry_sum   : entrySum,\n                location_id : stat.locationid,\n                start_time  : fmt.format(fixedStart),   // ✅ 00:00:00\n                end_time    : fmt.format(fixedEnd),     // ✅ 23:59:59\n                created_at  : fmt.format(now),\n                updated_at  : fmt.format(now)\n            ]\n        }\n    }\n\n    outputStream.write(\n        JsonOutput.prettyPrint(JsonOutput.toJson(result))\n            .getBytes(StandardCharsets.UTF_8)\n    )\n\n} as StreamCallback)\n\nsession.transfer(flowFile, REL_SUCCESS)"
+        "Script Body" : "import org.apache.nifi.processor.io.StreamCallback\nimport groovy.json.JsonSlurper\nimport groovy.json.JsonOutput\nimport java.nio.charset.StandardCharsets\nimport java.time.*\nimport java.time.format.DateTimeFormatter\n\ndef flowFile = session.get()\nif (!flowFile) return\n\nflowFile = session.write(flowFile, { inputStream, outputStream ->\n\n    def json = new JsonSlurper().parseText(inputStream.getText('UTF-8'))\n    def result = []\n\n    def zone = ZoneId.of(\"Asia/Kolkata\")\n    def fmt = DateTimeFormatter.ofPattern(\"yyyy-MM-dd HH:mm:ss\").withZone(zone)\n    def now = Instant.now()\n\n    def todayDate = ZonedDateTime.now(zone).toLocalDate()\n    def fixedStart = todayDate.atStartOfDay(zone)\n    def fixedEnd   = todayDate.atTime(23,59,59).atZone(zone)\n\n    json.each { record ->\n        record.stats?.each { stat ->\n\n            def ts = (stat.startTime ?: record.startTime) as long\n            def hourTime = Instant.ofEpochMilli(ts).atZone(zone)\n\n            // keep hour, force today's IST date\n            def correctedHour = ZonedDateTime.of(\n                todayDate,\n                hourTime.toLocalTime().withMinute(0).withSecond(0).withNano(0),\n                zone\n            )\n\n            // ✅ entry - exit calculation\n            def entry = stat.entryStats?.sum ?: 0\n            def exit  = stat.exitStats?.sum ?: 0\n            def entrySum = Math.max(0, entry - exit)\n\n            result << [\n                hour        : fmt.format(correctedHour),\n                entry_sum   : entrySum,\n                location_id : stat.locationid,\n                start_time  : fmt.format(fixedStart),\n                end_time    : fmt.format(fixedEnd),\n                created_at  : fmt.format(now),\n                updated_at  : fmt.format(now)\n            ]\n        }\n    }\n\n    outputStream.write(\n        JsonOutput.prettyPrint(JsonOutput.toJson(result))\n            .getBytes(StandardCharsets.UTF_8)\n    )\n\n} as StreamCallback)\n\nsession.transfer(flowFile, REL_SUCCESS)"
       },
       "propertyDescriptors" : {
         "Script File" : {
@@ -6730,7 +6730,7 @@
       },
       "properties" : {
         "Script Engine" : "Groovy",
-        "Script Body" : "import org.apache.nifi.processor.io.StreamCallback\nimport groovy.json.JsonSlurper\nimport groovy.json.JsonOutput\nimport java.nio.charset.StandardCharsets\nimport java.time.*\nimport java.time.format.DateTimeFormatter\n\ndef flowFile = session.get()\nif (!flowFile) return\n\nflowFile = session.write(flowFile, { inputStream, outputStream ->\n\n    def json = new JsonSlurper().parseText(inputStream.getText('UTF-8'))\n    def result = []\n\n    def zone = ZoneId.of(\"Asia/Kolkata\")\n    def fmt = DateTimeFormatter.ofPattern(\"yyyy-MM-dd HH:mm:ss\").withZone(zone)\n    def now = Instant.now()\n\n    // ✅ FULL DAY WINDOW (00:00:00 → 23:59:59 IST)\n    def todayDate = ZonedDateTime.now(zone).toLocalDate()\n    def fixedStart = todayDate.atStartOfDay(zone)\n    def fixedEnd   = todayDate.atTime(23,59,59).atZone(zone)\n\n    json.each { record ->\n\n        record.stats?.each { stat ->\n\n            def ts = (stat.startTime ?: record.startTime) as Long\n            def hourTime = Instant.ofEpochMilli(ts).atZone(zone)\n            def hourStr = fmt.format(hourTime.withMinute(0).withSecond(0).withNano(0))\n\n            def entrySum = stat.entryStats?.sum ?: 0\n\n            result << [\n                hour        : hourStr,\n                entry_sum   : entrySum,\n                location_id : stat.locationid,\n                start_time  : fmt.format(fixedStart),   // ✅ 00:00:00\n                end_time    : fmt.format(fixedEnd),     // ✅ 23:59:59\n                created_at  : fmt.format(now),\n                updated_at  : fmt.format(now)\n            ]\n        }\n    }\n\n    outputStream.write(\n        JsonOutput.prettyPrint(JsonOutput.toJson(result))\n            .getBytes(StandardCharsets.UTF_8)\n    )\n\n} as StreamCallback)\n\nsession.transfer(flowFile, REL_SUCCESS)"
+        "Script Body" : "import org.apache.nifi.processor.io.StreamCallback\nimport groovy.json.JsonSlurper\nimport groovy.json.JsonOutput\nimport java.nio.charset.StandardCharsets\nimport java.time.*\nimport java.time.format.DateTimeFormatter\n\ndef flowFile = session.get()\nif (!flowFile) return\n\nflowFile = session.write(flowFile, { inputStream, outputStream ->\n\n    def json = new JsonSlurper().parseText(inputStream.getText('UTF-8'))\n    def result = []\n\n    def zone = ZoneId.of(\"Asia/Kolkata\")\n    def fmt = DateTimeFormatter.ofPattern(\"yyyy-MM-dd HH:mm:ss\").withZone(zone)\n    def now = Instant.now()\n\n    // FULL DAY WINDOW (IST)\n    def todayDate = ZonedDateTime.now(zone).toLocalDate()\n    def fixedStart = todayDate.atStartOfDay(zone)\n    def fixedEnd   = todayDate.atTime(23,59,59).atZone(zone)\n\n    json.each { record ->\n\n        record.stats?.each { stat ->\n\n            // safe numeric cast\n            def ts = (stat.startTime ?: record.startTime) as long\n            def hourTime = Instant.ofEpochMilli(ts).atZone(zone)\n\n            // keep hour from timestamp, force today's IST date\n            def correctedHour = ZonedDateTime.of(\n                    todayDate,\n                    hourTime.toLocalTime().withMinute(0).withSecond(0).withNano(0),\n                    zone\n            )\n\n            // ✅ entry - exit calculation\n            def entry = stat.entryStats?.sum ?: 0\n            def exit  = stat.exitStats?.sum ?: 0\n            def entrySum = Math.max(0, entry - exit)\n\n            result << [\n                hour        : fmt.format(correctedHour),\n                entry_sum   : entrySum,\n                location_id : stat.locationid,\n                start_time  : fmt.format(fixedStart),\n                end_time    : fmt.format(fixedEnd),\n                created_at  : fmt.format(now),\n                updated_at  : fmt.format(now)\n            ]\n        }\n    }\n\n    outputStream.write(\n        JsonOutput.prettyPrint(JsonOutput.toJson(result))\n            .getBytes(StandardCharsets.UTF_8)\n    )\n\n} as StreamCallback)\n\nsession.transfer(flowFile, REL_SUCCESS)"
       },
       "propertyDescriptors" : {
         "Script File" : {
@@ -8524,6 +8524,6 @@
   "snapshotMetadata" : {
     "author" : "b0134371-f506-4b06-addc-5225b6ca3196",
     "flowIdentifier" : "Aerowise-aodb-actual-analytics-distributionlatestfeb26",
-    "timestamp" : 1771662393053
+    "timestamp" : 1772101088651
   }
 }
