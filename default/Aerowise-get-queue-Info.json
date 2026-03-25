@@ -1,0 +1,11 @@
+{
+  "flow" : {
+    "createdTimestamp" : 1774421082351,
+    "description" : "Aerowise get queue Info",
+    "identifier" : "Aerowise-get-queue-Info",
+    "lastModifiedTimestamp" : 1774421082351,
+    "name" : "Aerowise get queue Info",
+    "versionCount" : 0
+  },
+  "latest" : false
+}
