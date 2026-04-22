@@ -1682,11 +1682,11 @@
       },
       "properties" : {
         "Authorization" : "Bearer ${bearer.token}",
+        "bearer_clean" : "${bearer.token:replaceAll('\\r',''):replaceAll('\\n',''):trim()}",
         "Store State" : "Do not store state",
         "canonical-value-lookup-cache-size" : "100",
         "api_url" : "https://ghial-prd.ghialapoc.in/advanced/api/v1/queue/get",
-        "locationId" : "658aa294c79ac16d63ea05d4,6634bedfb8c0fd124518b246,658aa2f8c79ac16d63ea05dd,6634bea2b8c0fd124518b227,65d34c817c95fd0bd3c85ad3,658aa270c79ac16d63ea05d1,658aa311c79ac16d63ea05e0,65d34be47c95fd0bd3c85970,658aa2d4c79ac16d63ea05da,658aa2b4c79ac16d63ea05d7",
-        "bearer.token" : "${bearer.token:trim()}"
+        "locationId" : "658aa294c79ac16d63ea05d4,6634bedfb8c0fd124518b246,658aa2f8c79ac16d63ea05dd,6634bea2b8c0fd124518b227,65d34c817c95fd0bd3c85ad3,658aa270c79ac16d63ea05d1,658aa311c79ac16d63ea05e0,65d34be47c95fd0bd3c85970,658aa2d4c79ac16d63ea05da,658aa2b4c79ac16d63ea05d7"
       },
       "propertyDescriptors" : {
         "Authorization" : {
@@ -1701,6 +1701,13 @@
           "dynamic" : false,
           "identifiesControllerService" : false,
           "name" : "Delete Attributes Expression",
+          "sensitive" : false
+        },
+        "bearer_clean" : {
+          "displayName" : "bearer_clean",
+          "dynamic" : true,
+          "identifiesControllerService" : false,
+          "name" : "bearer_clean",
           "sensitive" : false
         },
         "Store State" : {
@@ -1729,13 +1736,6 @@
           "dynamic" : true,
           "identifiesControllerService" : false,
           "name" : "locationId",
-          "sensitive" : false
-        },
-        "bearer.token" : {
-          "displayName" : "bearer.token",
-          "dynamic" : true,
-          "identifiesControllerService" : false,
-          "name" : "bearer.token",
           "sensitive" : false
         },
         "Stateful Variables Initial Value" : {
@@ -2174,7 +2174,7 @@
         "HTTP/2 Disabled" : "False",
         "Connection Timeout" : "70 secs",
         "Response Cookie Strategy" : "ACCEPT_ALL",
-        "Authorization" : "Bearer ${bearer.token}",
+        "Authorization" : "Bearer ${bearer_clean}",
         "Socket Read Timeout" : "60 secs",
         "Socket Idle Connections" : "5",
         "Request Body Enabled" : "true",
@@ -2598,8 +2598,8 @@
       "name" : "GetFile",
       "penaltyDuration" : "30 sec",
       "position" : {
-        "x" : -880.0,
-        "y" : -728.0
+        "x" : -456.0,
+        "y" : -760.0
       },
       "properties" : {
         "Keep Source File" : "true",
@@ -3159,6 +3159,6 @@
   "snapshotMetadata" : {
     "author" : "b0134371-f506-4b06-addc-5225b6ca3196",
     "flowIdentifier" : "Aerowise-get-queue-Info",
-    "timestamp" : 1776839334695
+    "timestamp" : 1776840113999
   }
 }
