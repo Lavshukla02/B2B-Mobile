@@ -6196,8 +6196,8 @@
       "name" : "PutFile",
       "penaltyDuration" : "30 sec",
       "position" : {
-        "x" : 1904.0,
-        "y" : 680.0
+        "x" : 2416.0,
+        "y" : 384.0
       },
       "properties" : {
         "Create Missing Directories" : "true",
@@ -8890,7 +8890,7 @@
       "penaltyDuration" : "30 sec",
       "position" : {
         "x" : 696.0,
-        "y" : 536.0
+        "y" : 472.0
       },
       "properties" : {
         "Continually Send Messages" : "false",
@@ -8989,6 +8989,6 @@
   "snapshotMetadata" : {
     "author" : "b0134371-f506-4b06-addc-5225b6ca3196",
     "flowIdentifier" : "Aerowise-cab-availability",
-    "timestamp" : 1774421238575
+    "timestamp" : 1776839437016
   }
 }
