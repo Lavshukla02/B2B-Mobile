@@ -8234,7 +8234,7 @@
         "api_url" : "https://ghial-prd.ghialapoc.in/advanced/api/v1/iot/analytics/distribution",
         "measurementFields" : "[\"entry\",\"exit\"]",
         "startTime" : "${now():format(\"yyyy-MM-dd 00:00:00\"):toDate(\"yyyy-MM-dd HH:mm:ss\"):toNumber()}",
-        "locations" : "[\"658bf67981b29119d2fc0680\"]",
+        "locations" : "[\"695f3fb429aa764993511c78\"]",
         "endTime" : "${now():format(\"yyyy-MM-dd 23:59:59\"):toDate(\"yyyy-MM-dd HH:mm:ss\"):toNumber()}"
       },
       "propertyDescriptors" : {
@@ -8524,6 +8524,6 @@
   "snapshotMetadata" : {
     "author" : "b0134371-f506-4b06-addc-5225b6ca3196",
     "flowIdentifier" : "Aerowise-aodb-actual-analytics-distributionlatestfeb26",
-    "timestamp" : 1772101088651
+    "timestamp" : 1776839458935
   }
 }
