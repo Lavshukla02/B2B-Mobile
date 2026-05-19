@@ -813,152 +813,6 @@
       "concurrentlySchedulableTaskCount" : 1,
       "executionNode" : "ALL",
       "groupIdentifier" : "flow-contents-group",
-      "identifier" : "3ebedc2a-019e-1000-3d8d-56394e258470",
-      "maxBackoffPeriod" : "10 mins",
-      "name" : "Escalation & SLA Table ExecuteScript",
-      "penaltyDuration" : "30 sec",
-      "position" : {
-        "x" : 128.0,
-        "y" : 2544.0
-      },
-      "properties" : {
-        "Script Engine" : "Groovy",
-        "Script Body" : "import groovy.json.*\nimport java.time.*\nimport java.time.format.DateTimeFormatter\nimport org.apache.nifi.processor.io.OutputStreamCallback\n\ndef flowFile = session.get()\nif (!flowFile) return\n\ntry {\n\n    def input = new JsonSlurper().parse(session.read(flowFile))\n    def output = []\n\n    def istZone = ZoneId.of(\"Asia/Kolkata\")\n    def fmt = DateTimeFormatter.ofPattern(\"yyyy-MM-dd HH:mm:ss\")\n\t\n    input.content.each { item ->\n        def ticketId = item.ticketId\n        def t = item.ticket\n\t\t\n        def createdAtIST = OffsetDateTime.parse(t.createdAt)\n                            .atZoneSameInstant(istZone)\n                            .format(fmt)\n\n        def updatedAtIST = OffsetDateTime.parse(t.updatedAt)\n                            .atZoneSameInstant(istZone)\n                            .format(fmt)\n\n        // If escalationInfo is empty, create one row with null key/value\n        if (!t.escalationInfo || t.escalationInfo.isEmpty()) {\n            output << [\n                ticket_id        : ticketId,\n                created_by       : t.createdBy,\n                updated_by       : t.updatedBy,\n                created_at       : createdAtIST,   // yyyy-MM-dd HH:mm:ss IST\n                updated_at       : updatedAtIST,    // yyyy-MM-dd HH:mm:ss IST\n                escalation_key  : null,\n                escalation_value: null\n            ]\n        } else {\n            // Otherwise explode each escalation entry\n            t.escalationInfo.each { k, v ->\n                output << [\n                    ticket_id        : ticketId,\n                    created_by       : t.createdBy,\n                    updated_by       : t.updatedBy,\n                    created_at       : createdAtIST,   // yyyy-MM-dd HH:mm:ss IST\n                    updated_at       : updatedAtIST,    // yyyy-MM-dd HH:mm:ss IST\n                    escalation_key  : k.toString(),\n                    escalation_value: v.toString()\n                ]\n            }\n        }\n    }\n\n    flowFile = session.write(flowFile, { out ->\n        out.write(JsonOutput.prettyPrint(JsonOutput.toJson(output)).getBytes(\"UTF-8\"))\n    } as OutputStreamCallback)\n\t\n\t// Sleep for 5 seconds\n\tThread.sleep(5000)\n\n    session.transfer(flowFile, REL_SUCCESS)\n\n} catch (Exception e) {\n\n    // Create failure FlowFile\n    def errorFlowFile = session.create(flowFile)\n\n    def errorPayload = [\n        error_type : e.getClass().getName(),\n        error_message : e.getMessage(),\n        processor : \"ExecuteScript - Escalation Transform\",\n        timestamp : new Date().toString()\n    ]\n\n    errorFlowFile = session.write(errorFlowFile, { out ->\n        out.write(JsonOutput.prettyPrint(JsonOutput.toJson(errorPayload)).getBytes(\"UTF-8\"))\n    } as OutputStreamCallback)\n\n    session.transfer(errorFlowFile, REL_FAILURE)\n    session.remove(flowFile)\n}\n"
-      },
-      "propertyDescriptors" : {
-        "Script File" : {
-          "displayName" : "Script File",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Script File",
-          "resourceDefinition" : {
-            "cardinality" : "SINGLE",
-            "resourceTypes" : [ "FILE" ]
-          },
-          "sensitive" : false
-        },
-        "Script Engine" : {
-          "displayName" : "Script Engine",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Script Engine",
-          "sensitive" : false
-        },
-        "Script Body" : {
-          "displayName" : "Script Body",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Script Body",
-          "sensitive" : false
-        },
-        "Module Directory" : {
-          "displayName" : "Module Directory",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Module Directory",
-          "resourceDefinition" : {
-            "cardinality" : "MULTIPLE",
-            "resourceTypes" : [ "DIRECTORY", "FILE" ]
-          },
-          "sensitive" : false
-        }
-      },
-      "retriedRelationships" : [ ],
-      "retryCount" : 10,
-      "runDurationMillis" : 0,
-      "scheduledState" : "DISABLED",
-      "schedulingPeriod" : "0 sec",
-      "schedulingStrategy" : "TIMER_DRIVEN",
-      "style" : { },
-      "type" : "org.apache.nifi.processors.script.ExecuteScript",
-      "yieldDuration" : "1 sec"
-    }, {
-      "autoTerminatedRelationships" : [ "failure" ],
-      "backoffMechanism" : "PENALIZE_FLOWFILE",
-      "bulletinLevel" : "WARN",
-      "bundle" : {
-        "artifact" : "nifi-scripting-nar",
-        "group" : "org.apache.nifi",
-        "version" : "2.6.0"
-      },
-      "comments" : "",
-      "componentType" : "PROCESSOR",
-      "concurrentlySchedulableTaskCount" : 1,
-      "executionNode" : "ALL",
-      "groupIdentifier" : "flow-contents-group",
-      "identifier" : "3ebefdf1-019e-1000-6315-3915afcb939b",
-      "maxBackoffPeriod" : "10 mins",
-      "name" : "Core Ticket Table ExecuteScript",
-      "penaltyDuration" : "30 sec",
-      "position" : {
-        "x" : 1320.0,
-        "y" : 2488.0
-      },
-      "properties" : {
-        "Script Engine" : "Groovy",
-        "Script Body" : "import groovy.json.*\nimport java.time.*\nimport java.time.format.DateTimeFormatter\nimport org.apache.nifi.processor.io.OutputStreamCallback\n\ndef flowFile = session.get()\nif (!flowFile) return\n\ntry {\n    def input = new JsonSlurper().parse(session.read(flowFile))\n    def output = []\n\n    def istZone = ZoneId.of(\"Asia/Kolkata\")\n    def fmt = DateTimeFormatter.ofPattern(\"yyyy-MM-dd HH:mm:ss\")\n\n    input.content.each { item ->\n        def t = item.ticket\n\n        def createdAtIST = OffsetDateTime.parse(t.createdAt)\n                            .atZoneSameInstant(istZone)\n                            .format(fmt)\n\n        def updatedAtIST = OffsetDateTime.parse(t.updatedAt)\n                            .atZoneSameInstant(istZone)\n                            .format(fmt)\n\n        output << [\n            ticket_id        : item.ticketId,\n            alert_id         : t.alertId,\n            rule_id          : t.ruleId,\n            priority         : t.priority,\n            status           : t.status,\n            department       : t.department,\n            assignee         : t.assignee,\n            location_id      : t.locationId,\n            parameter        : t.parameter,\n            comment          : t.comment,\n            current_level : (t.currentLevel != null ? Integer.parseInt(t.currentLevel.toString()) : null),\n            sent_notification: (t.sent_notification?.toString()?.trim() ? true : false),\n            created_by       : t.createdBy,\n            updated_by       : t.updatedBy,\n            created_at       : createdAtIST,   // yyyy-MM-dd HH:mm:ss IST\n            updated_at       : updatedAtIST    // yyyy-MM-dd HH:mm:ss IST\n        ]\n    }\n\n    flowFile = session.write(flowFile, { out ->\n        out.write(JsonOutput.toJson(output).getBytes(\"UTF-8\"))\n    } as OutputStreamCallback)\n\n    session.transfer(flowFile, REL_SUCCESS)\n\n} catch (Exception e) {\n\n    def errorFlowFile = session.create(flowFile)\n    errorFlowFile = session.putAttribute(errorFlowFile, \"error.type\", e.getClass().getName())\n    errorFlowFile = session.putAttribute(errorFlowFile, \"error.message\", e.getMessage())\n\n    def sw = new StringWriter()\n    e.printStackTrace(new PrintWriter(sw))\n    errorFlowFile = session.putAttribute(errorFlowFile, \"error.stacktrace\", sw.toString())\n\n    errorFlowFile = session.write(errorFlowFile, { out ->\n        out.write(JsonOutput.prettyPrint(JsonOutput.toJson([\n            errorType: e.getClass().getName(),\n            errorMessage: e.getMessage(),\n            stackTrace: sw.toString()\n        ])).getBytes(\"UTF-8\"))\n    } as OutputStreamCallback)\n\n    session.transfer(errorFlowFile, REL_FAILURE)\n    session.remove(flowFile)\n}\n"
-      },
-      "propertyDescriptors" : {
-        "Script File" : {
-          "displayName" : "Script File",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Script File",
-          "resourceDefinition" : {
-            "cardinality" : "SINGLE",
-            "resourceTypes" : [ "FILE" ]
-          },
-          "sensitive" : false
-        },
-        "Script Engine" : {
-          "displayName" : "Script Engine",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Script Engine",
-          "sensitive" : false
-        },
-        "Script Body" : {
-          "displayName" : "Script Body",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Script Body",
-          "sensitive" : false
-        },
-        "Module Directory" : {
-          "displayName" : "Module Directory",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Module Directory",
-          "resourceDefinition" : {
-            "cardinality" : "MULTIPLE",
-            "resourceTypes" : [ "DIRECTORY", "FILE" ]
-          },
-          "sensitive" : false
-        }
-      },
-      "retriedRelationships" : [ ],
-      "retryCount" : 10,
-      "runDurationMillis" : 0,
-      "scheduledState" : "DISABLED",
-      "schedulingPeriod" : "0 sec",
-      "schedulingStrategy" : "TIMER_DRIVEN",
-      "style" : { },
-      "type" : "org.apache.nifi.processors.script.ExecuteScript",
-      "yieldDuration" : "1 sec"
-    }, {
-      "autoTerminatedRelationships" : [ "failure" ],
-      "backoffMechanism" : "PENALIZE_FLOWFILE",
-      "bulletinLevel" : "WARN",
-      "bundle" : {
-        "artifact" : "nifi-scripting-nar",
-        "group" : "org.apache.nifi",
-        "version" : "2.6.0"
-      },
-      "comments" : "",
-      "componentType" : "PROCESSOR",
-      "concurrentlySchedulableTaskCount" : 1,
-      "executionNode" : "ALL",
-      "groupIdentifier" : "flow-contents-group",
       "identifier" : "6bae1bdf-019d-1000-58c0-8f3bff3c6cd3",
       "maxBackoffPeriod" : "10 mins",
       "name" : "Escalation & SLA Table ExecuteScript",
@@ -1120,7 +974,7 @@
         "canonical-value-lookup-cache-size" : "100",
         "api_url" : "https://ghial-stage.ghialapoc.in/advanced/api/v1/ticket/fetch?page=0&size=9999&sort=createdAt",
         "criteria" : "[\"NOT_ACKNOWLEDGED\",\"ACKNOWLEDGED\",\"CLOSED\",\"RESOLVED\",\"ON_HOLD\",\"ESCALATED\",\"FORCED_CLOSED\"]",
-        "startTime" : "${now():toDate(\"Asia/Kolkata\"):format(\"yyyy-MM-dd 00:00:00\"):toDate(\"yyyy-MM-dd HH:mm:ss\"):toNumber()}"
+        "startTime" : "${now():minus(432000000):toDate(\"Asia/Kolkata\"):format(\"yyyy-MM-dd 00:00:00\"):toDate(\"yyyy-MM-dd HH:mm:ss\"):toNumber()}"
       },
       "propertyDescriptors" : {
         "Authorization" : {
@@ -1325,7 +1179,7 @@
       },
       "properties" : {
         "Script Engine" : "Groovy",
-        "Script Body" : "import groovy.json.*\nimport java.time.*\nimport java.time.format.DateTimeFormatter\nimport org.apache.nifi.processor.io.OutputStreamCallback\n\ndef flowFile = session.get()\nif (!flowFile) return\n\ntry {\n    def input = new JsonSlurper().parse(session.read(flowFile))\n    def output = []\n\n    def istZone = ZoneId.of(\"Asia/Kolkata\")\n    def fmt = DateTimeFormatter.ofPattern(\"yyyy-MM-dd HH:mm:ss\")\n\n    input.content.each { item ->\n        def t = item.ticket\n\n        def createdAtIST = OffsetDateTime.parse(t.createdAt)\n                            .atZoneSameInstant(istZone)\n                            .format(fmt)\n\n        def updatedAtIST = OffsetDateTime.parse(t.updatedAt)\n                            .atZoneSameInstant(istZone)\n                            .format(fmt)\n\n        output << [\n            ticket_id        : item.ticketId,\n            alert_id         : t.alertId,\n            rule_id          : t.ruleId,\n            priority         : t.priority,\n            status           : t.status,\n            department       : t.department,\n            assignee         : t.assignee,\n            location_id      : t.locationId,\n            parameter        : t.parameter,\n            comment          : t.comment,\n            current_level : (t.currentLevel != null ? Integer.parseInt(t.currentLevel.toString()) : null),\n            sent_notification: (t.sent_notification?.toString()?.trim() ? true : false),\n            created_by       : t.createdBy,\n            updated_by       : t.updatedBy,\n            created_at       : createdAtIST,   // yyyy-MM-dd HH:mm:ss IST\n            updated_at       : updatedAtIST    // yyyy-MM-dd HH:mm:ss IST\n        ]\n    }\n\n    flowFile = session.write(flowFile, { out ->\n        out.write(JsonOutput.toJson(output).getBytes(\"UTF-8\"))\n    } as OutputStreamCallback)\n\n    session.transfer(flowFile, REL_SUCCESS)\n\n} catch (Exception e) {\n\n    def errorFlowFile = session.create(flowFile)\n    errorFlowFile = session.putAttribute(errorFlowFile, \"error.type\", e.getClass().getName())\n    errorFlowFile = session.putAttribute(errorFlowFile, \"error.message\", e.getMessage())\n\n    def sw = new StringWriter()\n    e.printStackTrace(new PrintWriter(sw))\n    errorFlowFile = session.putAttribute(errorFlowFile, \"error.stacktrace\", sw.toString())\n\n    errorFlowFile = session.write(errorFlowFile, { out ->\n        out.write(JsonOutput.prettyPrint(JsonOutput.toJson([\n            errorType: e.getClass().getName(),\n            errorMessage: e.getMessage(),\n            stackTrace: sw.toString()\n        ])).getBytes(\"UTF-8\"))\n    } as OutputStreamCallback)\n\n    session.transfer(errorFlowFile, REL_FAILURE)\n    session.remove(flowFile)\n}\n"
+        "Script Body" : "import groovy.json.*\nimport java.time.*\nimport java.time.format.DateTimeFormatter\nimport org.apache.nifi.processor.io.OutputStreamCallback\n\ndef flowFile = session.get()\nif (!flowFile) return\n\ntry {\n\n    def input = new JsonSlurper().parse(session.read(flowFile))\n    def output = []\n\n    // =========================================================\n    // UTC CONFIG\n    // =========================================================\n\n    def utcZone = ZoneId.of(\"UTC\")\n\n    def fmt = DateTimeFormatter.ofPattern(\n            \"yyyy-MM-dd HH:mm:ss\"\n    )\n\n    // =========================================================\n    // PROCESS RECORDS\n    // =========================================================\n\n    input.content.each { item ->\n\n        def t = item.ticket\n\n        // =====================================================\n        // CREATED AT UTC\n        // =====================================================\n\n        def createdAtUTC = null\n\n        if (t.createdAt) {\n\n            createdAtUTC =\n                    OffsetDateTime\n                            .parse(t.createdAt)\n                            .atZoneSameInstant(utcZone)\n                            .format(fmt)\n        }\n\n        // =====================================================\n        // UPDATED AT UTC\n        // =====================================================\n\n        def updatedAtUTC = null\n\n        if (t.updatedAt) {\n\n            updatedAtUTC =\n                    OffsetDateTime\n                            .parse(t.updatedAt)\n                            .atZoneSameInstant(utcZone)\n                            .format(fmt)\n        }\n\n        // =====================================================\n        // FINAL OUTPUT\n        // =====================================================\n\n        output << [\n\n                ticket_id        : item.ticketId,\n\n                alert_id         : t.alertId,\n\n                rule_id          : t.ruleId,\n\n                priority         : t.priority,\n\n                status           : t.status,\n\n                department       : t.department,\n\n                assignee         : t.assignee,\n\n                location_id      : t.locationId,\n\n                parameter        : t.parameter,\n\n                comment          : t.comment,\n\n                current_level    :\n                        (\n                                t.currentLevel != null\n                                        ? Integer.parseInt(\n                                        t.currentLevel.toString()\n                                )\n                                        : null\n                        ),\n\n                sent_notification:\n                        (\n                                t.sent_notification\n                                        ?.toString()\n                                        ?.trim()\n                                        ? true\n                                        : false\n                        ),\n\n                created_by       : t.createdBy,\n\n                updated_by       : t.updatedBy,\n\n                created_at       : createdAtUTC,\n\n                updated_at       : updatedAtUTC\n        ]\n    }\n\n    // =========================================================\n    // WRITE OUTPUT\n    // =========================================================\n\n    flowFile = session.write(flowFile, { out ->\n\n        out.write(\n                JsonOutput.toJson(output)\n                        .getBytes(\"UTF-8\")\n        )\n\n    } as OutputStreamCallback)\n\n    // =========================================================\n    // SUCCESS\n    // =========================================================\n\n    session.transfer(flowFile, REL_SUCCESS)\n\n}\ncatch (Exception e) {\n\n    def errorFlowFile = session.create(flowFile)\n\n    errorFlowFile = session.putAttribute(\n            errorFlowFile,\n            \"error.type\",\n            e.getClass().getName()\n    )\n\n    errorFlowFile = session.putAttribute(\n            errorFlowFile,\n            \"error.message\",\n            e.getMessage()\n    )\n\n    def sw = new StringWriter()\n\n    e.printStackTrace(new PrintWriter(sw))\n\n    errorFlowFile = session.putAttribute(\n            errorFlowFile,\n            \"error.stacktrace\",\n            sw.toString()\n    )\n\n    errorFlowFile = session.write(\n            errorFlowFile,\n            { out ->\n\n                out.write(\n                        JsonOutput.prettyPrint(\n                                JsonOutput.toJson([\n\n                                        errorType   :\n                                                e.getClass().getName(),\n\n                                        errorMessage:\n                                                e.getMessage(),\n\n                                        stackTrace  :\n                                                sw.toString()\n\n                                ])\n                        ).getBytes(\"UTF-8\")\n                )\n\n            } as OutputStreamCallback\n    )\n\n    session.transfer(errorFlowFile, REL_FAILURE)\n\n    session.remove(flowFile)\n}"
       },
       "propertyDescriptors" : {
         "Script File" : {
@@ -2352,8 +2206,8 @@
       "name" : "PutDatabaseRecord_ticket_upsert",
       "penaltyDuration" : "30 sec",
       "position" : {
-        "x" : 1792.0,
-        "y" : 2984.0
+        "x" : 1656.0,
+        "y" : 3248.0
       },
       "properties" : {
         "put-db-record-allow-multiple-statements" : "false",
@@ -2833,6 +2687,6 @@
   "snapshotMetadata" : {
     "author" : "b0134371-f506-4b06-addc-5225b6ca3196",
     "flowIdentifier" : "ticketpostmain",
-    "timestamp" : 1779169676112
+    "timestamp" : 1779172947219
   }
 }
