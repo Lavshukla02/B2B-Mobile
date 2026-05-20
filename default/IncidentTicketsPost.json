@@ -649,6 +649,97 @@
     }, {
       "bulletinLevel" : "WARN",
       "bundle" : {
+        "artifact" : "nifi-lookup-services-nar",
+        "group" : "org.apache.nifi",
+        "version" : "2.6.0"
+      },
+      "comments" : "",
+      "componentType" : "CONTROLLER_SERVICE",
+      "controllerServiceApis" : [ {
+        "bundle" : {
+          "artifact" : "nifi-standard-services-api-nar",
+          "group" : "org.apache.nifi",
+          "version" : "2.6.0"
+        },
+        "type" : "org.apache.nifi.lookup.StringLookupService"
+      }, {
+        "bundle" : {
+          "artifact" : "nifi-standard-services-api-nar",
+          "group" : "org.apache.nifi",
+          "version" : "2.6.0"
+        },
+        "type" : "org.apache.nifi.lookup.LookupService"
+      } ],
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "2dbd1166-59e4-3d8a-bb24-5ceb7ec81df0",
+      "name" : "DistributedMapCacheLookupService",
+      "properties" : {
+        "character-encoding" : "UTF-8",
+        "distributed-map-cache-service" : "0fa22314-10b5-3283-ba04-da0dde34ec14"
+      },
+      "propertyDescriptors" : {
+        "character-encoding" : {
+          "displayName" : "Character Encoding",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "character-encoding",
+          "sensitive" : false
+        },
+        "distributed-map-cache-service" : {
+          "displayName" : "Distributed Cache Service",
+          "dynamic" : false,
+          "identifiesControllerService" : true,
+          "name" : "distributed-map-cache-service",
+          "sensitive" : false
+        }
+      },
+      "scheduledState" : "DISABLED",
+      "type" : "org.apache.nifi.lookup.DistributedMapCacheLookupService"
+    }, {
+      "bulletinLevel" : "WARN",
+      "bundle" : {
+        "artifact" : "nifi-redis-nar",
+        "group" : "org.apache.nifi",
+        "version" : "2.6.0"
+      },
+      "comments" : "",
+      "componentType" : "CONTROLLER_SERVICE",
+      "controllerServiceApis" : [ {
+        "bundle" : {
+          "artifact" : "nifi-standard-services-api-nar",
+          "group" : "org.apache.nifi",
+          "version" : "2.6.0"
+        },
+        "type" : "org.apache.nifi.distributed.cache.client.DistributedMapCacheClient"
+      } ],
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "3e59feb6-d408-3885-a911-b42924e64d11",
+      "name" : "SimpleRedisDistributedMapCacheClientService",
+      "properties" : {
+        "redis-connection-pool" : "a59353d5-052b-3d02-a63b-0e6c5608093a",
+        "redis-cache-ttl" : "3600 secs"
+      },
+      "propertyDescriptors" : {
+        "redis-connection-pool" : {
+          "displayName" : "Redis Connection Pool",
+          "dynamic" : false,
+          "identifiesControllerService" : true,
+          "name" : "redis-connection-pool",
+          "sensitive" : false
+        },
+        "redis-cache-ttl" : {
+          "displayName" : "TTL",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "redis-cache-ttl",
+          "sensitive" : false
+        }
+      },
+      "scheduledState" : "DISABLED",
+      "type" : "org.apache.nifi.redis.service.SimpleRedisDistributedMapCacheClientService"
+    }, {
+      "bulletinLevel" : "WARN",
+      "bundle" : {
         "artifact" : "nifi-record-serialization-services-nar",
         "group" : "org.apache.nifi",
         "version" : "2.6.0"
@@ -960,6 +1051,210 @@
       },
       "scheduledState" : "DISABLED",
       "type" : "org.apache.nifi.json.JsonRecordSetWriter"
+    }, {
+      "bulletinLevel" : "WARN",
+      "bundle" : {
+        "artifact" : "nifi-redis-nar",
+        "group" : "org.apache.nifi",
+        "version" : "2.6.0"
+      },
+      "comments" : "",
+      "componentType" : "CONTROLLER_SERVICE",
+      "controllerServiceApis" : [ {
+        "bundle" : {
+          "artifact" : "nifi-redis-service-api-nar",
+          "group" : "org.apache.nifi",
+          "version" : "2.6.0"
+        },
+        "type" : "org.apache.nifi.redis.RedisConnectionPool"
+      } ],
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "a59353d5-052b-3d02-a63b-0e6c5608093a",
+      "name" : "RedisConnectionPoolService",
+      "properties" : {
+        "Pool - Min Evictable Idle Time" : "60 seconds",
+        "Pool - Test On Borrow" : "false",
+        "Pool - Test On Return" : "false",
+        "Redis Mode" : "Standalone",
+        "Pool - Max Idle" : "8",
+        "Pool - Block When Exhausted" : "true",
+        "Cluster Max Redirects" : "5",
+        "Pool - Num Tests Per Eviction Run" : "-1",
+        "Connection String" : "redis://localhost:6379",
+        "Pool - Max Total" : "8",
+        "Pool - Test On Create" : "false",
+        "Pool - Min Idle" : "0",
+        "Pool - Test While Idle" : "true",
+        "Pool - Time Between Eviction Runs" : "30 seconds",
+        "Communication Timeout" : "10 seconds",
+        "Pool - Max Wait Time" : "10 seconds",
+        "Database Index" : "0"
+      },
+      "propertyDescriptors" : {
+        "Pool - Min Evictable Idle Time" : {
+          "displayName" : "Pool - Min Evictable Idle Time",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Pool - Min Evictable Idle Time",
+          "sensitive" : false
+        },
+        "Pool - Test On Borrow" : {
+          "displayName" : "Pool - Test On Borrow",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Pool - Test On Borrow",
+          "sensitive" : false
+        },
+        "Pool - Test On Return" : {
+          "displayName" : "Pool - Test On Return",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Pool - Test On Return",
+          "sensitive" : false
+        },
+        "Redis Mode" : {
+          "displayName" : "Redis Mode",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Redis Mode",
+          "sensitive" : false
+        },
+        "Pool - Max Idle" : {
+          "displayName" : "Pool - Max Idle",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Pool - Max Idle",
+          "sensitive" : false
+        },
+        "Pool - Block When Exhausted" : {
+          "displayName" : "Pool - Block When Exhausted",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Pool - Block When Exhausted",
+          "sensitive" : false
+        },
+        "Cluster Max Redirects" : {
+          "displayName" : "Cluster Max Redirects",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Cluster Max Redirects",
+          "sensitive" : false
+        },
+        "Pool - Num Tests Per Eviction Run" : {
+          "displayName" : "Pool - Num Tests Per Eviction Run",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Pool - Num Tests Per Eviction Run",
+          "sensitive" : false
+        },
+        "Connection String" : {
+          "displayName" : "Connection String",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Connection String",
+          "sensitive" : false
+        },
+        "Pool - Max Total" : {
+          "displayName" : "Pool - Max Total",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Pool - Max Total",
+          "sensitive" : false
+        },
+        "Pool - Test On Create" : {
+          "displayName" : "Pool - Test On Create",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Pool - Test On Create",
+          "sensitive" : false
+        },
+        "SSL Context Service" : {
+          "displayName" : "SSL Context Service",
+          "dynamic" : false,
+          "identifiesControllerService" : true,
+          "name" : "SSL Context Service",
+          "sensitive" : false
+        },
+        "Sentinel Username" : {
+          "displayName" : "Sentinel Username",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Sentinel Username",
+          "sensitive" : false
+        },
+        "Pool - Min Idle" : {
+          "displayName" : "Pool - Min Idle",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Pool - Min Idle",
+          "sensitive" : false
+        },
+        "Username" : {
+          "displayName" : "Username",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Username",
+          "sensitive" : false
+        },
+        "Sentinel Password" : {
+          "displayName" : "Sentinel Password",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Sentinel Password",
+          "sensitive" : true
+        },
+        "Pool - Test While Idle" : {
+          "displayName" : "Pool - Test While Idle",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Pool - Test While Idle",
+          "sensitive" : false
+        },
+        "Pool - Time Between Eviction Runs" : {
+          "displayName" : "Pool - Time Between Eviction Runs",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Pool - Time Between Eviction Runs",
+          "sensitive" : false
+        },
+        "Communication Timeout" : {
+          "displayName" : "Communication Timeout",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Communication Timeout",
+          "sensitive" : false
+        },
+        "Pool - Max Wait Time" : {
+          "displayName" : "Pool - Max Wait Time",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Pool - Max Wait Time",
+          "sensitive" : false
+        },
+        "Database Index" : {
+          "displayName" : "Database Index",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Database Index",
+          "sensitive" : false
+        },
+        "Sentinel Master" : {
+          "displayName" : "Sentinel Master",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Sentinel Master",
+          "sensitive" : false
+        },
+        "Password" : {
+          "displayName" : "Password",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Password",
+          "sensitive" : true
+        }
+      },
+      "scheduledState" : "DISABLED",
+      "type" : "org.apache.nifi.redis.service.RedisConnectionPoolService"
     }, {
       "bulletinLevel" : "WARN",
       "bundle" : {
@@ -4192,6 +4487,6 @@
   "snapshotMetadata" : {
     "author" : "b0134371-f506-4b06-addc-5225b6ca3196",
     "flowIdentifier" : "IncidentTicketsPost",
-    "timestamp" : 1779174446376
+    "timestamp" : 1779261099509
   }
 }
