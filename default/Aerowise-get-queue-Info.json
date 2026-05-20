@@ -1309,8 +1309,8 @@
       "name" : "LogAttribute",
       "penaltyDuration" : "30 sec",
       "position" : {
-        "x" : 568.0,
-        "y" : 672.0
+        "x" : 496.0,
+        "y" : 552.0
       },
       "properties" : {
         "character-set" : "UTF-8",
@@ -2598,7 +2598,7 @@
       "name" : "GetFile",
       "penaltyDuration" : "30 sec",
       "position" : {
-        "x" : -456.0,
+        "x" : -408.0,
         "y" : -760.0
       },
       "properties" : {
@@ -2726,8 +2726,8 @@
       "name" : "MonitorActivity",
       "penaltyDuration" : "30 sec",
       "position" : {
-        "x" : -704.0,
-        "y" : 8.0
+        "x" : -904.0,
+        "y" : 16.0
       },
       "properties" : {
         "Continually Send Messages" : "false",
@@ -2833,8 +2833,8 @@
       "name" : "AWS token get",
       "penaltyDuration" : "30 sec",
       "position" : {
-        "x" : 672.0,
-        "y" : -720.0
+        "x" : 160.0,
+        "y" : -776.0
       },
       "properties" : {
         "Command" : "/bin/bash",
@@ -2922,8 +2922,8 @@
       "name" : "ExtractText",
       "penaltyDuration" : "30 sec",
       "position" : {
-        "x" : 272.0,
-        "y" : -488.0
+        "x" : 176.0,
+        "y" : -576.0
       },
       "properties" : {
         "Enable Unicode Predefined Character Classes" : "false",
@@ -3159,6 +3159,6 @@
   "snapshotMetadata" : {
     "author" : "b0134371-f506-4b06-addc-5225b6ca3196",
     "flowIdentifier" : "Aerowise-get-queue-Info",
-    "timestamp" : 1776840113999
+    "timestamp" : 1779261121419
   }
 }
