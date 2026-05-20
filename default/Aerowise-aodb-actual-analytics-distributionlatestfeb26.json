@@ -4361,7 +4361,7 @@
         "api_url" : "https://ghial-prd.ghialapoc.in/advanced/api/v1/iot/analytics/distribution",
         "measurementFields" : "[\"entry\",\"exit\"]",
         "startTime" : "${now():format(\"yyyy-MM-dd 00:00:00\"):toDate(\"yyyy-MM-dd HH:mm:ss\"):toNumber()}",
-        "locations" : "[\"658aa270c79ac16d63ea05d1\",\"658aa294c79ac16d63ea05d4\",\"658aa2b4c79ac16d63ea05d7\",\"658aa2d4c79ac16d63ea05da\",\"658aa2f8c79ac16d63ea05dd\",\"658aa311c79ac16d63ea05e0\",\"65d34be47c95fd0bd3c85970\",\"65d34c817c95fd0bd3c85ad3\",\"6634bea2b8c0fd124518b227\",\"6634bec2b8c0fd124518b231\",\"664e06760629c6255b93f03a\",\"6634bedfb8c0fd124518b246\",\"6634bf01b8c0fd124518b257\"]",
+        "locations" : "[\"658aa270c79ac16d63ea05d1\",\"658aa294c79ac16d63ea05d4\",\"658aa2b4c79ac16d63ea05d7\",\"658aa2d4c79ac16d63ea05da\",\"658aa2f8c79ac16d63ea05dd\",\"658aa311c79ac16d63ea05e0\",\"65d34be47c95fd0bd3c85970\",\"65d34c817c95fd0bd3c85ad3\",\"6634bea2b8c0fd124518b227\",\"6634bec2b8c0fd124518b231\",\"664e06760629c6255b93f03a\",\"6634bedfb8c0fd124518b246\",\"6634bf01b8c0fd124518b257\",\"665829825c52e37ad747089c\",\"68d502280a5908636f8f52be\"]",
         "endTime" : "${now():format(\"yyyy-MM-dd 23:59:59\"):toDate(\"yyyy-MM-dd HH:mm:ss\"):toNumber()}"
       },
       "propertyDescriptors" : {
@@ -8524,6 +8524,6 @@
   "snapshotMetadata" : {
     "author" : "b0134371-f506-4b06-addc-5225b6ca3196",
     "flowIdentifier" : "Aerowise-aodb-actual-analytics-distributionlatestfeb26",
-    "timestamp" : 1776839458935
+    "timestamp" : 1779261142987
   }
 }
