@@ -49,36 +49,6 @@
       "destination" : {
         "comments" : "",
         "groupId" : "flow-contents-group",
-        "id" : "253863bd-019e-1000-7e4e-ec2d701bfd32",
-        "name" : "Tickets_InvokeHTTP",
-        "type" : "PROCESSOR"
-      },
-      "flowFileExpiration" : "0 sec",
-      "groupIdentifier" : "flow-contents-group",
-      "identifier" : "253863bf-019e-1000-6de6-abc24f549a4c",
-      "labelIndex" : 0,
-      "loadBalanceCompression" : "DO_NOT_COMPRESS",
-      "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
-      "name" : "",
-      "partitioningAttribute" : "",
-      "prioritizers" : [ ],
-      "selectedRelationships" : [ "success" ],
-      "source" : {
-        "comments" : "",
-        "groupId" : "flow-contents-group",
-        "id" : "253863b9-019e-1000-540a-b962488430a0",
-        "name" : "ReplaceText",
-        "type" : "PROCESSOR"
-      },
-      "zIndex" : 4
-    }, {
-      "backPressureDataSizeThreshold" : "1 GB",
-      "backPressureObjectThreshold" : 10000,
-      "bends" : [ ],
-      "componentType" : "CONNECTION",
-      "destination" : {
-        "comments" : "",
-        "groupId" : "flow-contents-group",
         "id" : "253863bc-019e-1000-143f-00f5102bc903",
         "name" : "UpdateAttribute",
         "type" : "PROCESSOR"
@@ -157,40 +127,10 @@
         "comments" : "",
         "groupId" : "flow-contents-group",
         "id" : "253863bd-019e-1000-7e4e-ec2d701bfd32",
-        "name" : "Tickets_InvokeHTTP",
+        "name" : "Tickets_Distrbution",
         "type" : "PROCESSOR"
       },
       "zIndex" : 6
-    }, {
-      "backPressureDataSizeThreshold" : "1 GB",
-      "backPressureObjectThreshold" : 10000,
-      "bends" : [ ],
-      "componentType" : "CONNECTION",
-      "destination" : {
-        "comments" : "",
-        "groupId" : "flow-contents-group",
-        "id" : "253863b9-019e-1000-540a-b962488430a0",
-        "name" : "ReplaceText",
-        "type" : "PROCESSOR"
-      },
-      "flowFileExpiration" : "0 sec",
-      "groupIdentifier" : "flow-contents-group",
-      "identifier" : "9e185a9c-3869-3a23-854c-87ee9b53e15e",
-      "labelIndex" : 0,
-      "loadBalanceCompression" : "DO_NOT_COMPRESS",
-      "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
-      "name" : "",
-      "partitioningAttribute" : "",
-      "prioritizers" : [ ],
-      "selectedRelationships" : [ "success" ],
-      "source" : {
-        "comments" : "",
-        "groupId" : "flow-contents-group",
-        "id" : "253863bc-019e-1000-143f-00f5102bc903",
-        "name" : "UpdateAttribute",
-        "type" : "PROCESSOR"
-      },
-      "zIndex" : 9
     }, {
       "backPressureDataSizeThreshold" : "1 GB",
       "backPressureObjectThreshold" : 10000,
@@ -221,6 +161,36 @@
         "type" : "PROCESSOR"
       },
       "zIndex" : 8
+    }, {
+      "backPressureDataSizeThreshold" : "1 GB",
+      "backPressureObjectThreshold" : 10000,
+      "bends" : [ ],
+      "componentType" : "CONNECTION",
+      "destination" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "253863bd-019e-1000-7e4e-ec2d701bfd32",
+        "name" : "Tickets_Distrbution",
+        "type" : "PROCESSOR"
+      },
+      "flowFileExpiration" : "0 sec",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "f42545de-c50d-39dc-9f19-a88713f994f3",
+      "labelIndex" : 0,
+      "loadBalanceCompression" : "DO_NOT_COMPRESS",
+      "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
+      "name" : "",
+      "partitioningAttribute" : "",
+      "prioritizers" : [ ],
+      "selectedRelationships" : [ "success" ],
+      "source" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "253863bc-019e-1000-143f-00f5102bc903",
+        "name" : "UpdateAttribute",
+        "type" : "PROCESSOR"
+      },
+      "zIndex" : 10
     } ],
     "controllerServices" : [ {
       "bulletinLevel" : "WARN",
@@ -535,111 +505,6 @@
     },
     "processGroups" : [ ],
     "processors" : [ {
-      "autoTerminatedRelationships" : [ "failure" ],
-      "backoffMechanism" : "PENALIZE_FLOWFILE",
-      "bulletinLevel" : "WARN",
-      "bundle" : {
-        "artifact" : "nifi-standard-nar",
-        "group" : "org.apache.nifi",
-        "version" : "2.6.0"
-      },
-      "comments" : "",
-      "componentType" : "PROCESSOR",
-      "concurrentlySchedulableTaskCount" : 1,
-      "executionNode" : "ALL",
-      "groupIdentifier" : "flow-contents-group",
-      "identifier" : "253863b9-019e-1000-540a-b962488430a0",
-      "maxBackoffPeriod" : "10 mins",
-      "name" : "ReplaceText",
-      "penaltyDuration" : "30 sec",
-      "position" : {
-        "x" : 416.0,
-        "y" : 240.0
-      },
-      "properties" : {
-        "Regular Expression" : "(?s)(^.*$)",
-        "Replacement Value" : "{\n  \"startTime\": ${startTime},\n  \"finishTime\": ${finishTime}\n}",
-        "Evaluation Mode" : "Entire text",
-        "Line-by-Line Evaluation Mode" : "All",
-        "Character Set" : "UTF-8",
-        "Maximum Buffer Size" : "1 MB",
-        "Replacement Strategy" : "Always Replace"
-      },
-      "propertyDescriptors" : {
-        "Regular Expression" : {
-          "displayName" : "Search Value",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Regular Expression",
-          "sensitive" : false
-        },
-        "Replacement Value" : {
-          "displayName" : "Replacement Value",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Replacement Value",
-          "sensitive" : false
-        },
-        "Evaluation Mode" : {
-          "displayName" : "Evaluation Mode",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Evaluation Mode",
-          "sensitive" : false
-        },
-        "Text to Prepend" : {
-          "displayName" : "Text to Prepend",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Text to Prepend",
-          "sensitive" : false
-        },
-        "Line-by-Line Evaluation Mode" : {
-          "displayName" : "Line-by-Line Evaluation Mode",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Line-by-Line Evaluation Mode",
-          "sensitive" : false
-        },
-        "Character Set" : {
-          "displayName" : "Character Set",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Character Set",
-          "sensitive" : false
-        },
-        "Maximum Buffer Size" : {
-          "displayName" : "Maximum Buffer Size",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Maximum Buffer Size",
-          "sensitive" : false
-        },
-        "Replacement Strategy" : {
-          "displayName" : "Replacement Strategy",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Replacement Strategy",
-          "sensitive" : false
-        },
-        "Text to Append" : {
-          "displayName" : "Text to Append",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Text to Append",
-          "sensitive" : false
-        }
-      },
-      "retriedRelationships" : [ ],
-      "retryCount" : 10,
-      "runDurationMillis" : 25,
-      "scheduledState" : "ENABLED",
-      "schedulingPeriod" : "0 sec",
-      "schedulingStrategy" : "TIMER_DRIVEN",
-      "style" : { },
-      "type" : "org.apache.nifi.processors.standard.ReplaceText",
-      "yieldDuration" : "1 sec"
-    }, {
       "autoTerminatedRelationships" : [ "unmatched" ],
       "backoffMechanism" : "PENALIZE_FLOWFILE",
       "bulletinLevel" : "WARN",
@@ -658,8 +523,8 @@
       "name" : "ExtractText",
       "penaltyDuration" : "30 sec",
       "position" : {
-        "x" : -176.0,
-        "y" : 128.0
+        "x" : -192.0,
+        "y" : 120.0
       },
       "properties" : {
         "Enable Unicode Predefined Character Classes" : "false",
@@ -821,8 +686,8 @@
       "name" : "GetFile",
       "penaltyDuration" : "30 sec",
       "position" : {
-        "x" : -175.9999310247847,
-        "y" : -64.16669740213388
+        "x" : -216.0,
+        "y" : -64.0
       },
       "properties" : {
         "Keep Source File" : "true",
@@ -949,15 +814,14 @@
       "name" : "UpdateAttribute",
       "penaltyDuration" : "30 sec",
       "position" : {
-        "x" : -160.0,
-        "y" : 328.0
+        "x" : -200.0,
+        "y" : 296.0
       },
       "properties" : {
         "Authorization" : "Bearer ${bearer.token}",
         "finishTime" : "${now():toDate(\"Asia/Kolkata\"):format(\"yyyy-MM-dd 23:59:59\"):toDate(\"yyyy-MM-dd HH:mm:ss\"):toNumber()}",
         "Store State" : "Do not store state",
         "canonical-value-lookup-cache-size" : "100",
-        "api_url" : "https://ghial-stage.ghialapoc.in/advanced/api/v1/ticket/distribution?startTime=${startTime}&finishTime=${finishTime}&timeZone=Asia%2FKolkata",
         "startTime" : "${now():toDate(\"Asia/Kolkata\"):format(\"yyyy-MM-dd 00:00:00\"):toDate(\"yyyy-MM-dd HH:mm:ss\"):toNumber()}"
       },
       "propertyDescriptors" : {
@@ -994,13 +858,6 @@
           "dynamic" : false,
           "identifiesControllerService" : false,
           "name" : "canonical-value-lookup-cache-size",
-          "sensitive" : false
-        },
-        "api_url" : {
-          "displayName" : "api_url",
-          "dynamic" : true,
-          "identifiesControllerService" : false,
-          "name" : "api_url",
           "sensitive" : false
         },
         "startTime" : {
@@ -1043,11 +900,11 @@
       "groupIdentifier" : "flow-contents-group",
       "identifier" : "253863bd-019e-1000-7e4e-ec2d701bfd32",
       "maxBackoffPeriod" : "10 mins",
-      "name" : "Tickets_InvokeHTTP",
+      "name" : "Tickets_Distrbution",
       "penaltyDuration" : "30 sec",
       "position" : {
-        "x" : 64.0,
-        "y" : 496.0
+        "x" : -216.0,
+        "y" : 472.0
       },
       "properties" : {
         "Request Content-Encoding" : "DISABLED",
@@ -1061,7 +918,7 @@
         "Socket Idle Connections" : "5",
         "Request Body Enabled" : "true",
         "OAuth2 Access Token Refresh Strategy" : "ON_TOKEN_EXPIRATION",
-        "HTTP URL" : "${api_url}",
+        "HTTP URL" : "https://ghial-stage.ghialapoc.in/advanced/api/v1/ticket/distribution?startTime=${startTime}&finishTime=${finishTime}&timeZone=Asia%2FKolkata",
         "Socket Idle Timeout" : "300 secs",
         "Response Redirects Enabled" : "True",
         "Accept" : "*/*",
@@ -1375,8 +1232,8 @@
       "name" : "PutDatabaseRecord_ticket",
       "penaltyDuration" : "30 sec",
       "position" : {
-        "x" : -112.0,
-        "y" : 872.0
+        "x" : -216.0,
+        "y" : 824.0
       },
       "properties" : {
         "put-db-record-allow-multiple-statements" : "false",
@@ -1620,8 +1477,8 @@
       "name" : "JoltTransformJSON",
       "penaltyDuration" : "30 sec",
       "position" : {
-        "x" : -512.0,
-        "y" : 584.0
+        "x" : -216.0,
+        "y" : 648.0
       },
       "properties" : {
         "JSON Source" : "FLOW_FILE",
@@ -1732,8 +1589,8 @@
       "name" : "LogAttribute",
       "penaltyDuration" : "30 sec",
       "position" : {
-        "x" : 490.04782444874354,
-        "y" : 865.8763141172235
+        "x" : 464.0,
+        "y" : 808.0
       },
       "properties" : {
         "character-set" : "UTF-8",
@@ -1836,6 +1693,6 @@
   "snapshotMetadata" : {
     "author" : "b0134371-f506-4b06-addc-5225b6ca3196",
     "flowIdentifier" : "TicketDistrubution",
-    "timestamp" : 1778843386104
+    "timestamp" : 1779692887255
   }
 }
