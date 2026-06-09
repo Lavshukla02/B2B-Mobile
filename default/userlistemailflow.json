@@ -1,0 +1,11 @@
+{
+  "flow" : {
+    "createdTimestamp" : 1780996026161,
+    "description" : "userlist_email_flow",
+    "identifier" : "userlistemailflow",
+    "lastModifiedTimestamp" : 1780996026161,
+    "name" : "userlist_email_flow",
+    "versionCount" : 0
+  },
+  "latest" : false
+}
