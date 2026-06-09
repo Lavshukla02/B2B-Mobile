@@ -1581,7 +1581,7 @@
         "Max String Length" : "20 MB",
         "Transform Cache Size" : "1",
         "Pretty Print" : "false",
-        "Jolt Specification" : "[\n  {\n    \"operation\": \"shift\",\n    \"spec\": {\n      \"*\": {\n        \"email\": \"[&1].email\",\n        \"id\": \"[&1].id\"\n      }\n    }\n  }\n]"
+        "Jolt Specification" : "[\n  {\n    \"operation\": \"shift\",\n    \"spec\": {\n      \"*\": {\n        \"email\": \"[&1].email\",\n        \"id\": \"[&1].id\",\n        \"login\": \"[&1].login\"\n      }\n    }\n  }\n]"
       },
       "propertyDescriptors" : {
         "JSON Source" : {
@@ -1677,6 +1677,6 @@
   "snapshotMetadata" : {
     "author" : "b0134371-f506-4b06-addc-5225b6ca3196",
     "flowIdentifier" : "userlistemailflow",
-    "timestamp" : 1780996027408
+    "timestamp" : 1781018290259
   }
 }
