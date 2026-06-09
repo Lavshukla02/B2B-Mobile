@@ -289,6 +289,36 @@
       "destination" : {
         "comments" : "",
         "groupId" : "flow-contents-group",
+        "id" : "7576fbcd-6a7a-3a07-b851-a890664372b0",
+        "name" : "AttributesToJSON",
+        "type" : "PROCESSOR"
+      },
+      "flowFileExpiration" : "0 sec",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "5b3195e7-52a3-3010-b8d6-42317f6cf27d",
+      "labelIndex" : 0,
+      "loadBalanceCompression" : "DO_NOT_COMPRESS",
+      "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
+      "name" : "",
+      "partitioningAttribute" : "",
+      "prioritizers" : [ ],
+      "selectedRelationships" : [ "SUCCESS" ],
+      "source" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "a5c875b2-019e-1000-c501-b7e2675be40a",
+        "name" : "RouteOnAttribute",
+        "type" : "PROCESSOR"
+      },
+      "zIndex" : 73
+    }, {
+      "backPressureDataSizeThreshold" : "1 GB",
+      "backPressureObjectThreshold" : 10000,
+      "bends" : [ ],
+      "componentType" : "CONNECTION",
+      "destination" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
         "id" : "2bc45d1f-019e-1000-1e24-96d6ed933050",
         "name" : "HandleHttpResponse",
         "type" : "PROCESSOR"
@@ -409,66 +439,6 @@
       "destination" : {
         "comments" : "",
         "groupId" : "flow-contents-group",
-        "id" : "de622bb5-019d-1000-1995-d9cabf281936",
-        "name" : "HandleHttpResponse",
-        "type" : "PROCESSOR"
-      },
-      "flowFileExpiration" : "0 sec",
-      "groupIdentifier" : "flow-contents-group",
-      "identifier" : "885d36eb-0fae-302b-a930-d26db334eb3f",
-      "labelIndex" : 0,
-      "loadBalanceCompression" : "DO_NOT_COMPRESS",
-      "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
-      "name" : "",
-      "partitioningAttribute" : "",
-      "prioritizers" : [ ],
-      "selectedRelationships" : [ "Response" ],
-      "source" : {
-        "comments" : "",
-        "groupId" : "flow-contents-group",
-        "id" : "108d0ba5-9978-3dce-8d5e-bb636124ea84",
-        "name" : "InvokeHTTP_PUT",
-        "type" : "PROCESSOR"
-      },
-      "zIndex" : 19
-    }, {
-      "backPressureDataSizeThreshold" : "1 GB",
-      "backPressureObjectThreshold" : 10000,
-      "bends" : [ ],
-      "componentType" : "CONNECTION",
-      "destination" : {
-        "comments" : "",
-        "groupId" : "flow-contents-group",
-        "id" : "7576fbcd-6a7a-3a07-b851-a890664372b0",
-        "name" : "AttributesToJSON",
-        "type" : "PROCESSOR"
-      },
-      "flowFileExpiration" : "0 sec",
-      "groupIdentifier" : "flow-contents-group",
-      "identifier" : "a1fb517d-0336-3718-b671-4857b6f75e9c",
-      "labelIndex" : 0,
-      "loadBalanceCompression" : "DO_NOT_COMPRESS",
-      "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
-      "name" : "",
-      "partitioningAttribute" : "",
-      "prioritizers" : [ ],
-      "selectedRelationships" : [ "SUCCESS" ],
-      "source" : {
-        "comments" : "",
-        "groupId" : "flow-contents-group",
-        "id" : "91565ea6-ddcd-356e-b743-4ad6bbc5691b",
-        "name" : "RouteOnAttribute",
-        "type" : "PROCESSOR"
-      },
-      "zIndex" : 48
-    }, {
-      "backPressureDataSizeThreshold" : "1 GB",
-      "backPressureObjectThreshold" : 10000,
-      "bends" : [ ],
-      "componentType" : "CONNECTION",
-      "destination" : {
-        "comments" : "",
-        "groupId" : "flow-contents-group",
         "id" : "468d2391-b08e-32bb-bf97-2a5eef4d65a5",
         "name" : "EvaluateJsonPath",
         "type" : "PROCESSOR"
@@ -551,6 +521,66 @@
         "type" : "PROCESSOR"
       },
       "zIndex" : 52
+    }, {
+      "backPressureDataSizeThreshold" : "1 GB",
+      "backPressureObjectThreshold" : 10000,
+      "bends" : [ ],
+      "componentType" : "CONNECTION",
+      "destination" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "2bc45d1f-019e-1000-1e24-96d6ed933050",
+        "name" : "HandleHttpResponse",
+        "type" : "PROCESSOR"
+      },
+      "flowFileExpiration" : "0 sec",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "cf480ec3-8fa7-3b34-b6d8-7a10d5a87668",
+      "labelIndex" : 0,
+      "loadBalanceCompression" : "DO_NOT_COMPRESS",
+      "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
+      "name" : "",
+      "partitioningAttribute" : "",
+      "prioritizers" : [ ],
+      "selectedRelationships" : [ "FAILURE" ],
+      "source" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "a5c875b2-019e-1000-c501-b7e2675be40a",
+        "name" : "RouteOnAttribute",
+        "type" : "PROCESSOR"
+      },
+      "zIndex" : 74
+    }, {
+      "backPressureDataSizeThreshold" : "1 GB",
+      "backPressureObjectThreshold" : 10000,
+      "bends" : [ ],
+      "componentType" : "CONNECTION",
+      "destination" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "a5c875b2-019e-1000-c501-b7e2675be40a",
+        "name" : "RouteOnAttribute",
+        "type" : "PROCESSOR"
+      },
+      "flowFileExpiration" : "0 sec",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "dc5d076a-b42a-3773-b9be-575985614807",
+      "labelIndex" : 0,
+      "loadBalanceCompression" : "DO_NOT_COMPRESS",
+      "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
+      "name" : "",
+      "partitioningAttribute" : "",
+      "prioritizers" : [ ],
+      "selectedRelationships" : [ "SUCCESS" ],
+      "source" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "91565ea6-ddcd-356e-b743-4ad6bbc5691b",
+        "name" : "RouteOnAttribute",
+        "type" : "PROCESSOR"
+      },
+      "zIndex" : 72
     }, {
       "backPressureDataSizeThreshold" : "1 GB",
       "backPressureObjectThreshold" : 10000,
@@ -1599,7 +1629,7 @@
     },
     "processGroups" : [ ],
     "processors" : [ {
-      "autoTerminatedRelationships" : [ "Failure", "No Retry", "Retry" ],
+      "autoTerminatedRelationships" : [ "Failure", "No Retry", "Response", "Retry" ],
       "backoffMechanism" : "PENALIZE_FLOWFILE",
       "bulletinLevel" : "WARN",
       "bundle" : {
@@ -2051,8 +2081,8 @@
       "name" : "LogAttribute",
       "penaltyDuration" : "30 sec",
       "position" : {
-        "x" : -880.0,
-        "y" : 1256.0
+        "x" : -856.0,
+        "y" : 1432.0
       },
       "properties" : {
         "character-set" : "UTF-8",
@@ -2753,8 +2783,8 @@
       "name" : "PutDatabaseRecord",
       "penaltyDuration" : "30 sec",
       "position" : {
-        "x" : -888.0,
-        "y" : 1032.0
+        "x" : -864.0,
+        "y" : 1200.0
       },
       "properties" : {
         "put-db-record-allow-multiple-statements" : "false",
@@ -2998,8 +3028,8 @@
       "name" : "HandleHttpResponse",
       "penaltyDuration" : "30 sec",
       "position" : {
-        "x" : -72.0,
-        "y" : 880.0
+        "x" : 96.0,
+        "y" : 832.0
       },
       "properties" : {
         "HTTP Context Map" : "de622bb0-019d-1000-0329-3609114f18c7",
@@ -3998,8 +4028,8 @@
       "name" : "AttributesToJSON",
       "penaltyDuration" : "30 sec",
       "position" : {
-        "x" : -888.0,
-        "y" : 856.0
+        "x" : -880.0,
+        "y" : 1008.0
       },
       "properties" : {
         "Destination" : "flowfile-attribute",
@@ -4095,6 +4125,65 @@
         "Routing Strategy" : "Route to Property name",
         "SUCCESS" : "${invokehttp.status.code:equals(200):or(${invokehttp.status.code:equals(204)})}",
         "FAILURE" : "${invokehttp.status.code:lt(200):or(${invokehttp.status.code:gt(299)})}"
+      },
+      "propertyDescriptors" : {
+        "Routing Strategy" : {
+          "displayName" : "Routing Strategy",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Routing Strategy",
+          "sensitive" : false
+        },
+        "SUCCESS" : {
+          "displayName" : "SUCCESS",
+          "dynamic" : true,
+          "identifiesControllerService" : false,
+          "name" : "SUCCESS",
+          "sensitive" : false
+        },
+        "FAILURE" : {
+          "displayName" : "FAILURE",
+          "dynamic" : true,
+          "identifiesControllerService" : false,
+          "name" : "FAILURE",
+          "sensitive" : false
+        }
+      },
+      "retriedRelationships" : [ ],
+      "retryCount" : 10,
+      "runDurationMillis" : 25,
+      "scheduledState" : "ENABLED",
+      "schedulingPeriod" : "0 sec",
+      "schedulingStrategy" : "TIMER_DRIVEN",
+      "style" : { },
+      "type" : "org.apache.nifi.processors.standard.RouteOnAttribute",
+      "yieldDuration" : "1 sec"
+    }, {
+      "autoTerminatedRelationships" : [ "unmatched" ],
+      "backoffMechanism" : "PENALIZE_FLOWFILE",
+      "bulletinLevel" : "WARN",
+      "bundle" : {
+        "artifact" : "nifi-standard-nar",
+        "group" : "org.apache.nifi",
+        "version" : "2.6.0"
+      },
+      "comments" : "",
+      "componentType" : "PROCESSOR",
+      "concurrentlySchedulableTaskCount" : 1,
+      "executionNode" : "ALL",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "a5c875b2-019e-1000-c501-b7e2675be40a",
+      "maxBackoffPeriod" : "10 mins",
+      "name" : "RouteOnAttribute",
+      "penaltyDuration" : "30 sec",
+      "position" : {
+        "x" : -1400.0,
+        "y" : 824.0
+      },
+      "properties" : {
+        "Routing Strategy" : "Route to Property name",
+        "SUCCESS" : "${fileSize:gt(5)}",
+        "FAILURE" : "${fileSize:lt(6)}"
       },
       "propertyDescriptors" : {
         "Routing Strategy" : {
@@ -4553,6 +4642,6 @@
   "snapshotMetadata" : {
     "author" : "b0134371-f506-4b06-addc-5225b6ca3196",
     "flowIdentifier" : "IncidentTicketsPost",
-    "timestamp" : 1779352303861
+    "timestamp" : 1780991674895
   }
 }
