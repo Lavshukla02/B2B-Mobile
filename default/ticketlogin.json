@@ -230,36 +230,6 @@
         "type" : "PROCESSOR"
       },
       "zIndex" : 20
-    }, {
-      "backPressureDataSizeThreshold" : "1 GB",
-      "backPressureObjectThreshold" : 10000,
-      "bends" : [ ],
-      "componentType" : "CONNECTION",
-      "destination" : {
-        "comments" : "",
-        "groupId" : "flow-contents-group",
-        "id" : "78edb63e-019a-1000-3c98-7a08e969c7c5",
-        "name" : "UpdateAttribute",
-        "type" : "PROCESSOR"
-      },
-      "flowFileExpiration" : "0 sec",
-      "groupIdentifier" : "flow-contents-group",
-      "identifier" : "d6d19ce8-7f46-30b3-8d43-155d34270a2a",
-      "labelIndex" : 0,
-      "loadBalanceCompression" : "DO_NOT_COMPRESS",
-      "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
-      "name" : "",
-      "partitioningAttribute" : "",
-      "prioritizers" : [ ],
-      "selectedRelationships" : [ "Failure" ],
-      "source" : {
-        "comments" : "",
-        "groupId" : "flow-contents-group",
-        "id" : "78edb63b-019a-1000-abfe-474bbdd1bf01",
-        "name" : "InvokeHTTP",
-        "type" : "PROCESSOR"
-      },
-      "zIndex" : 32
     } ],
     "controllerServices" : [ {
       "bulletinLevel" : "WARN",
@@ -623,12 +593,12 @@
         "Keep Source File" : "true",
         "Minimum File Age" : "0 sec",
         "Polling Interval" : "0 sec",
-        "Input Directory" : "ticket_cred",
+        "Input Directory" : "cred",
         "Batch Size" : "10",
         "Minimum File Size" : "0 B",
         "Ignore Hidden Files" : "true",
         "Recurse Subdirectories" : "true",
-        "File Filter" : "ticket_key.json"
+        "File Filter" : "glprdkey.json"
       },
       "propertyDescriptors" : {
         "Keep Source File" : {
@@ -1892,6 +1862,6 @@
   "snapshotMetadata" : {
     "author" : "b0134371-f506-4b06-addc-5225b6ca3196",
     "flowIdentifier" : "ticketlogin",
-    "timestamp" : 1778843463699
+    "timestamp" : 1780991237674
   }
 }
