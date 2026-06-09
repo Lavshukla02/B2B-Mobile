@@ -2759,8 +2759,8 @@
       "retryCount" : 10,
       "runDurationMillis" : 0,
       "scheduledState" : "ENABLED",
-      "schedulingPeriod" : "300 sec",
-      "schedulingStrategy" : "TIMER_DRIVEN",
+      "schedulingPeriod" : "1 0 0 * * ?",
+      "schedulingStrategy" : "CRON_DRIVEN",
       "style" : { },
       "type" : "org.apache.nifi.processors.standard.GetFile",
       "yieldDuration" : "1 sec"
@@ -4642,6 +4642,6 @@
   "snapshotMetadata" : {
     "author" : "b0134371-f506-4b06-addc-5225b6ca3196",
     "flowIdentifier" : "IncidentTicketsPost",
-    "timestamp" : 1780991674895
+    "timestamp" : 1780991956123
   }
 }
