@@ -738,7 +738,7 @@
       "retryCount" : 10,
       "runDurationMillis" : 0,
       "scheduledState" : "ENABLED",
-      "schedulingPeriod" : "120 sec",
+      "schedulingPeriod" : "60 sec",
       "schedulingStrategy" : "TIMER_DRIVEN",
       "style" : { },
       "type" : "org.apache.nifi.processors.standard.GetFile",
@@ -1675,8 +1675,8 @@
   "parameterContexts" : { },
   "parameterProviders" : { },
   "snapshotMetadata" : {
-    "author" : "b0134371-f506-4b06-addc-5225b6ca3196",
+    "author" : "b0134371-f506-4bil-dfrt-6578b6ca3196",
     "flowIdentifier" : "userlistemailflow",
-    "timestamp" : 1781018290259
+    "timestamp" : 1781158337270
   }
 }
