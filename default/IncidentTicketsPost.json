@@ -5243,7 +5243,6 @@
       "properties" : {
         "Destination" : "flowfile-attribute",
         "finishTime" : "$.finish_time_ms",
-        "workflow" : "$.workflow",
         "Max String Length" : "20 MB",
         "Return Type" : "auto-detect",
         "Null Value Representation" : "empty string",
@@ -5263,13 +5262,6 @@
           "dynamic" : true,
           "identifiesControllerService" : false,
           "name" : "finishTime",
-          "sensitive" : false
-        },
-        "workflow" : {
-          "displayName" : "workflow",
-          "dynamic" : true,
-          "identifiesControllerService" : false,
-          "name" : "workflow",
           "sensitive" : false
         },
         "Max String Length" : {
@@ -6063,8 +6055,8 @@
       "name" : "EvaluateJsonPath",
       "penaltyDuration" : "30 sec",
       "position" : {
-        "x" : -1584.0,
-        "y" : -16.0
+        "x" : -1592.0,
+        "y" : 8.0
       },
       "properties" : {
         "Destination" : "flowfile-attribute",
@@ -6147,6 +6139,6 @@
   "snapshotMetadata" : {
     "author" : "b0134371-f506-4bil-dfrt-6578b6ca3196",
     "flowIdentifier" : "IncidentTicketsPost",
-    "timestamp" : 1781263483337
+    "timestamp" : 1781265156854
   }
 }
