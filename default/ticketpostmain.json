@@ -1640,18 +1640,18 @@
         "Request Multipart Form-Data Filename Enabled" : "true",
         "Request Chunked Transfer-Encoding Enabled" : "false",
         "HTTP/2 Disabled" : "False",
-        "Connection Timeout" : "300 secs",
+        "Connection Timeout" : "180 secs",
         "Response Cookie Strategy" : "ACCEPT_ALL",
         "Authorization" : "Bearer ${bearer.token}",
-        "Socket Read Timeout" : "300 secs",
+        "Socket Read Timeout" : "180 secs",
         "Socket Idle Connections" : "5",
         "Request Body Enabled" : "true",
         "OAuth2 Access Token Refresh Strategy" : "ON_TOKEN_EXPIRATION",
         "HTTP URL" : "${api_url}",
-        "Socket Idle Timeout" : "300 secs",
+        "Socket Idle Timeout" : "60 secs",
         "Response Redirects Enabled" : "True",
         "Accept" : "*/*",
-        "Socket Write Timeout" : "300 secs",
+        "Socket Write Timeout" : "60 secs",
         "Response FlowFile Naming Strategy" : "RANDOM",
         "Response Cache Enabled" : "false",
         "Request Date Header Enabled" : "False",
@@ -2687,6 +2687,6 @@
   "snapshotMetadata" : {
     "author" : "b0134371-f506-4bil-dfrt-6578b6ca3196",
     "flowIdentifier" : "ticketpostmain",
-    "timestamp" : 1781101595730
+    "timestamp" : 1781523398932
   }
 }
