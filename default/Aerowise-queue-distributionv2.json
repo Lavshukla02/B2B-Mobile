@@ -1,0 +1,11 @@
+{
+  "flow" : {
+    "createdTimestamp" : 1781505251211,
+    "description" : "Aerowise queue distribution_v2",
+    "identifier" : "Aerowise-queue-distributionv2",
+    "lastModifiedTimestamp" : 1781505251211,
+    "name" : "Aerowise queue distribution_v2",
+    "versionCount" : 0
+  },
+  "latest" : false
+}
