@@ -2172,10 +2172,10 @@
         "Request Multipart Form-Data Filename Enabled" : "true",
         "Request Chunked Transfer-Encoding Enabled" : "false",
         "HTTP/2 Disabled" : "False",
-        "Connection Timeout" : "70 secs",
+        "Connection Timeout" : "180 secs",
         "Response Cookie Strategy" : "ACCEPT_ALL",
         "Authorization" : "Bearer ${bearer_clean}",
-        "Socket Read Timeout" : "60 secs",
+        "Socket Read Timeout" : "180 secs",
         "Socket Idle Connections" : "5",
         "Request Body Enabled" : "true",
         "OAuth2 Access Token Refresh Strategy" : "ON_TOKEN_EXPIRATION",
@@ -3157,8 +3157,8 @@
   "parameterContexts" : { },
   "parameterProviders" : { },
   "snapshotMetadata" : {
-    "author" : "b0134371-f506-4b06-addc-5225b6ca3196",
+    "author" : "b0134371-f506-4bil-dfrt-6578b6ca3196",
     "flowIdentifier" : "Aerowise-get-queue-Info",
-    "timestamp" : 1779261121419
+    "timestamp" : 1781677143181
   }
 }
