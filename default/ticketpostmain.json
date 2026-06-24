@@ -974,7 +974,8 @@
         "canonical-value-lookup-cache-size" : "100",
         "api_url" : "https://ghial-stage.ghialapoc.in/advanced/api/v1/ticket/fetch?page=0&size=9999&sort=createdAt",
         "criteria" : "[\"NOT_ACKNOWLEDGED\",\"ACKNOWLEDGED\",\"CLOSED\",\"RESOLVED\",\"ON_HOLD\",\"ESCALATED\",\"FORCED_CLOSED\"]",
-        "startTime" : "${now():minus(432000000):toDate(\"Asia/Kolkata\"):format(\"yyyy-MM-dd 00:00:00\"):toDate(\"yyyy-MM-dd HH:mm:ss\"):toNumber()}"
+        "startTime" : "${now():minus(604800000):format(\"yyyy-MM-dd 00:00:00\",\"Asia/Kolkata\"):toDate(\"yyyy-MM-dd HH:mm:ss\"):toNumber()}",
+        "locale" : "en-US"
       },
       "propertyDescriptors" : {
         "Authorization" : {
@@ -1039,6 +1040,13 @@
           "identifiesControllerService" : false,
           "name" : "Stateful Variables Initial Value",
           "sensitive" : false
+        },
+        "locale" : {
+          "displayName" : "locale",
+          "dynamic" : true,
+          "identifiesControllerService" : false,
+          "name" : "locale",
+          "sensitive" : false
         }
       },
       "retriedRelationships" : [ ],
@@ -1074,7 +1082,7 @@
       },
       "properties" : {
         "Regular Expression" : "(?s)(^.*$)",
-        "Replacement Value" : "{\n  \"criteria\": ${criteria},\n  \"startTime\": ${startTime},\n  \"finishTime\": ${finishTime}  \n}",
+        "Replacement Value" : "{\n  \"criteria\": ${criteria},\n  \"startTime\": ${startTime},\n  \"finishTime\": ${finishTime},\n  \"locale\":\"en-US\"\n}",
         "Evaluation Mode" : "Entire text",
         "Line-by-Line Evaluation Mode" : "All",
         "Character Set" : "UTF-8",
@@ -2687,6 +2695,6 @@
   "snapshotMetadata" : {
     "author" : "b0134371-f506-4bil-dfrt-6578b6ca3196",
     "flowIdentifier" : "ticketpostmain",
-    "timestamp" : 1781523398932
+    "timestamp" : 1782300978247
   }
 }
