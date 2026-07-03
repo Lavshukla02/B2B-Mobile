@@ -1082,7 +1082,7 @@
         "schema-name" : "${schema.name}",
         "starting-field-strategy" : "ROOT_NODE",
         "schema-access-strategy" : "schema-text-property",
-        "schema-text" : "{\n  \"type\": \"record\",\n  \"name\": \"ticket_details\",\n  \"namespace\": \"alert_b2b_app\",\n  \"fields\": [\n    {\n      \"name\": \"ticket_id\",\n      \"type\": \"string\"\n    },\n    {\n      \"name\": \"alert_id\",\n      \"type\": [\"null\", \"string\"],\n      \"default\": null\n    },\n    {\n      \"name\": \"rule_id\",\n      \"type\": [\"null\", \"string\"],\n      \"default\": null\n    },\n    {\n      \"name\": \"priority\",\n      \"type\": [\"null\", \"string\"],\n      \"default\": null\n    },\n    {\n      \"name\": \"status\",\n      \"type\": [\"null\", \"string\"],\n      \"default\": null\n    },\n    {\n      \"name\": \"department\",\n      \"type\": [\"null\", \"string\"],\n      \"default\": null\n    },\n    {\n      \"name\": \"assignee\",\n      \"type\": [\"null\", \"string\"],\n      \"default\": null\n    },\n    {\n      \"name\": \"location_id\",\n      \"type\": [\"null\", \"string\"],\n      \"default\": null\n    },\n    {\n      \"name\": \"parameter\",\n      \"type\": [\"null\", \"string\"],\n      \"default\": null\n    },\n    {\n      \"name\": \"comment\",\n      \"type\": [\"null\", \"string\"],\n      \"default\": null\n    },\n    {\n      \"name\": \"current_level\",\n      \"type\": [\"null\", \"int\"],\n      \"default\": null\n    },\n    {\n     \"name\": \"sent_notification\",\n     \"type\": [\"null\", \"boolean\"],\n     \"default\": null\n   },\n    {\n      \"name\": \"created_by\",\n      \"type\": [\"null\", \"string\"],\n      \"default\": null\n    },\n    {\n      \"name\": \"updated_by\",\n      \"type\": [\"null\", \"string\"],\n      \"default\": null\n    },\n    {\n      \"name\": \"created_at\",\n      \"type\": [\"null\", \"string\"],\n      \"default\": null\n    },\n    {\n      \"name\": \"updated_at\",\n      \"type\": [\"null\", \"string\"],\n      \"default\": null\n    }\n  ]\n}",
+        "schema-text" : "{\n  \"type\": \"record\",\n  \"name\": \"ticket_details\",\n  \"namespace\": \"alert_b2b_app\",\n  \"fields\": [\n    { \"name\": \"ticket_id\", \"type\": \"string\" },\n    { \"name\": \"alert_id\", \"type\": [\"null\",\"string\"], \"default\": null },\n    { \"name\": \"rule_id\", \"type\": [\"null\",\"string\"], \"default\": null },\n    { \"name\": \"priority\", \"type\": [\"null\",\"string\"], \"default\": null },\n    { \"name\": \"status\", \"type\": [\"null\",\"string\"], \"default\": null },\n    { \"name\": \"department\", \"type\": [\"null\",\"string\"], \"default\": null },\n    { \"name\": \"assignee\", \"type\": [\"null\",\"string\"], \"default\": null },\n    { \"name\": \"location_id\", \"type\": [\"null\",\"string\"], \"default\": null },\n    { \"name\": \"parameter\", \"type\": [\"null\",\"string\"], \"default\": null },\n    { \"name\": \"comment\", \"type\": [\"null\",\"string\"], \"default\": null },\n    { \"name\": \"current_level\", \"type\": [\"null\",\"int\"], \"default\": null },\n    { \"name\": \"sent_notification\", \"type\": [\"null\",\"boolean\"], \"default\": null },\n    { \"name\": \"created_by\", \"type\": [\"null\",\"string\"], \"default\": null },\n    { \"name\": \"updated_by\", \"type\": [\"null\",\"string\"], \"default\": null },\n    { \"name\": \"created_at\", \"type\": [\"null\",\"string\"], \"default\": null },\n    { \"name\": \"updated_at\", \"type\": [\"null\",\"string\"], \"default\": null }\n  ]\n}",
         "Allow Comments" : "false"
       },
       "propertyDescriptors" : {
@@ -1201,6 +1201,153 @@
       },
       "scheduledState" : "DISABLED",
       "type" : "org.apache.nifi.json.JsonTreeReader"
+    }, {
+      "bulletinLevel" : "WARN",
+      "bundle" : {
+        "artifact" : "nifi-dbcp-service-nar",
+        "group" : "org.apache.nifi",
+        "version" : "2.6.0"
+      },
+      "comments" : "",
+      "componentType" : "CONTROLLER_SERVICE",
+      "controllerServiceApis" : [ {
+        "bundle" : {
+          "artifact" : "nifi-standard-services-api-nar",
+          "group" : "org.apache.nifi",
+          "version" : "2.6.0"
+        },
+        "type" : "org.apache.nifi.dbcp.DBCPService"
+      } ],
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "79110745-b170-37a1-b8d4-92c9634d6166",
+      "name" : "DBCPConnectionPool",
+      "properties" : {
+        "dbcp-min-idle-conns" : "0",
+        "Max Wait Time" : "500 millis",
+        "Database Driver Class Name" : "org.postgresql.Driver",
+        "dbcp-min-evictable-idle-time" : "30 mins",
+        "Max Total Connections" : "8",
+        "dbcp-max-conn-lifetime" : "-1",
+        "Database Connection URL" : "jdbc:postgresql://aerowise-dev-db.c7i08ukwctz8.ap-south-1.rds.amazonaws.com:5432/aerowise_mbapp?ssl=true&sslmode=require",
+        "dbcp-time-between-eviction-runs" : "-1",
+        "Database User" : "aerowise_admin",
+        "dbcp-soft-min-evictable-idle-time" : "-1",
+        "database-driver-locations" : "lib/postgresql-42.7.8.jar",
+        "dbcp-max-idle-conns" : "8"
+      },
+      "propertyDescriptors" : {
+        "dbcp-min-idle-conns" : {
+          "displayName" : "Minimum Idle Connections",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "dbcp-min-idle-conns",
+          "sensitive" : false
+        },
+        "Max Wait Time" : {
+          "displayName" : "Max Wait Time",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Max Wait Time",
+          "sensitive" : false
+        },
+        "Database Driver Class Name" : {
+          "displayName" : "Database Driver Class Name",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Database Driver Class Name",
+          "sensitive" : false
+        },
+        "dbcp-min-evictable-idle-time" : {
+          "displayName" : "Minimum Evictable Idle Time",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "dbcp-min-evictable-idle-time",
+          "sensitive" : false
+        },
+        "Max Total Connections" : {
+          "displayName" : "Max Total Connections",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Max Total Connections",
+          "sensitive" : false
+        },
+        "dbcp-max-conn-lifetime" : {
+          "displayName" : "Max Connection Lifetime",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "dbcp-max-conn-lifetime",
+          "sensitive" : false
+        },
+        "Validation-query" : {
+          "displayName" : "Validation query",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Validation-query",
+          "sensitive" : false
+        },
+        "Database Connection URL" : {
+          "displayName" : "Database Connection URL",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Database Connection URL",
+          "sensitive" : false
+        },
+        "dbcp-time-between-eviction-runs" : {
+          "displayName" : "Time Between Eviction Runs",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "dbcp-time-between-eviction-runs",
+          "sensitive" : false
+        },
+        "Database User" : {
+          "displayName" : "Database User",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Database User",
+          "sensitive" : false
+        },
+        "kerberos-user-service" : {
+          "displayName" : "Kerberos User Service",
+          "dynamic" : false,
+          "identifiesControllerService" : true,
+          "name" : "kerberos-user-service",
+          "sensitive" : false
+        },
+        "dbcp-soft-min-evictable-idle-time" : {
+          "displayName" : "Soft Minimum Evictable Idle Time",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "dbcp-soft-min-evictable-idle-time",
+          "sensitive" : false
+        },
+        "database-driver-locations" : {
+          "displayName" : "Database Driver Location(s)",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "database-driver-locations",
+          "resourceDefinition" : {
+            "cardinality" : "MULTIPLE",
+            "resourceTypes" : [ "DIRECTORY", "FILE", "URL" ]
+          },
+          "sensitive" : false
+        },
+        "dbcp-max-idle-conns" : {
+          "displayName" : "Max Idle Connections",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "dbcp-max-idle-conns",
+          "sensitive" : false
+        },
+        "Password" : {
+          "displayName" : "Password",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Password",
+          "sensitive" : true
+        }
+      },
+      "scheduledState" : "DISABLED",
+      "type" : "org.apache.nifi.dbcp.DBCPConnectionPool"
     }, {
       "bulletinLevel" : "WARN",
       "bundle" : {
@@ -3419,7 +3566,7 @@
       "properties" : {
         "put-db-record-allow-multiple-statements" : "false",
         "put-db-record-schema-name" : "alert_b2b_app",
-        "put-db-record-unmatched-column-behavior" : "Fail on Unmatched Columns",
+        "put-db-record-unmatched-column-behavior" : "Warn on Unmatched Columns",
         "put-db-record-catalog-name" : "aerowise_mbapp",
         "put-db-record-statement-type" : "UPSERT",
         "put-db-record-update-keys" : "ticket_id",
@@ -6776,6 +6923,6 @@
   "snapshotMetadata" : {
     "author" : "b0134371-f506-4bil-dfrt-6578b6ca3196",
     "flowIdentifier" : "IncidentTicketsPostv2",
-    "timestamp" : 1783062858377
+    "timestamp" : 1783069665284
   }
 }
